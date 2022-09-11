@@ -1,0 +1,23 @@
+version: '3.6'
+services:
+  app:
+    container_name: java-utility
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "9000:8080"
+    tty: true
+    networks:
+      - spring-cloud-network
+  redis:
+    container_name: redis
+    hostname: redis
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - spring-cloud-network
+networks:
+  spring-cloud-network:
+    driver: bridge

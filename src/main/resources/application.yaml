@@ -1,0 +1,31 @@
+# Settings Server
+server:
+  port: 8080
+
+# Redisson Server
+redis:
+  server:
+    address: redis://127.0.0.1:6379
+# Settings Spring
+spring:
+  # Database
+  datasource:
+    url: jdbc:mariadb://localhost:3306/local_mariadb
+    username: admin
+    password: password
+    driver-class-name: org.mariadb.jdbc.Driver
+  # Avoid Override
+  main:
+    allow-bean-definition-overriding: true
+  # hibernate
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  # Logging Color
+  output:
+    ansi:
+      enabled: always
+  # Documentation
