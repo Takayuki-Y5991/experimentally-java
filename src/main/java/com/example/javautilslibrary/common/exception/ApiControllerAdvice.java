@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.Objects;
+
 @Slf4j
 @RestControllerAdvice
 public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
@@ -18,36 +20,42 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler({AccessDeniedException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseEntity<ApiErrorResponse> handleAuthException(AccessDeniedException ex) {
-        return errorLogging(ex, HttpStatus.FORBIDDEN);
+        this.errorLogging(ex, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(ApiErrorResponse.build(HttpStatus.FORBIDDEN.value(), ex.getMessage()), new HttpHeaders(), HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler({Exception.class, ClientException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ApiErrorResponse> handleException(Exception ex) {
-        return errorLogging(ex, HttpStatus.INTERNAL_SERVER_ERROR);
+        this.errorLogging(ex, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(ApiErrorResponse.build(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler({DomainException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ApiErrorResponse> handleBadRequest(Exception ex) {
-        return errorLogging(ex, HttpStatus.BAD_REQUEST);
+        this.errorLogging(ex, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<ApiErrorResponse>(ApiErrorResponse.build(HttpStatus.BAD_REQUEST.value(), ex.getMessage()), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ApiErrorResponse> handlerNotFound(Exception ex) {
-        return errorLogging(ex, HttpStatus.NOT_FOUND);
+        this.errorLogging(ex, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(ApiErrorResponse.build(HttpStatus.NOT_FOUND.value(), ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ApiErrorResponse> handlerUnauthorized(Exception ex) {
-        return errorLogging(ex, HttpStatus.UNAUTHORIZED);
+        this.errorLogging(ex, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(ApiErrorResponse.build(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
 
-    private ResponseEntity<ApiErrorResponse> errorLogging(Exception ex, HttpStatus status) {
+    private void errorLogging(Exception ex, HttpStatus status) {
         log.error("[Error]: [" + ex.getMessage() + "]");
-        log.error("[Cause]: [" + ex.getCause().getStackTrace() + "]");
-        return new ResponseEntity<ApiErrorResponse>(ApiErrorResponse.build(status.value(), ex.getMessage()), status);
+        if (Objects.nonNull(ex.getCause())) {
+            log.error("[Cause]: [" + ex.getCause().getStackTrace() + "]");
+        }
     }
 
     /**

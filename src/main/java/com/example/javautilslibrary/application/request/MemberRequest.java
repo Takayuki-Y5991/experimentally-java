@@ -7,20 +7,20 @@ import java.time.LocalDate;
 
 
 public class MemberRequest {
-    @JsonProperty(value = "memberId")
+    @JsonProperty("memberId")
     private Long memberId;
-    @JsonProperty(value = "name")
+    @JsonProperty("name")
     private String name;
-    @JsonProperty(value = "sex")
+    @JsonProperty("sex")
     private Integer sex;
-    @JsonProperty(value = "email")
+    @JsonProperty("email")
     private String email;
-    @JsonProperty(value = "password")
+    @JsonProperty("password")
     private String password;
-    @JsonProperty(value = "birthday")
+    @JsonProperty("birthday")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
-    @JsonProperty(value = "contact")
+    @JsonProperty("contact")
     private String contact;
 
     public MemberRequest() {

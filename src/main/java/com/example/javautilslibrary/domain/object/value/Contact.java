@@ -13,13 +13,13 @@ public class Contact {
 
     private String contact;
 
-    public static Contact build(String contact) throws DomainException {
+    public static Contact build(String contact) {
         return Contact.builder()
                 .contact(isValidContactFormat(contact))
                 .build();
     }
 
-    private static String isValidContactFormat(String contact) throws DomainException {
+    private static String isValidContactFormat(String contact) {
         if (StringUtils.isBlank(contact)) {
             return contact;
         }

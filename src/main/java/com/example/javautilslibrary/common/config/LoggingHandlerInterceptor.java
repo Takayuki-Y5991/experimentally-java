@@ -2,10 +2,7 @@ package com.example.javautilslibrary.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,7 +10,6 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Objects;
@@ -50,12 +46,12 @@ public class LoggingHandlerInterceptor implements HandlerInterceptor {
         log.info("[method] : {}", request.getMethod());
         log.info("[uri] : {}", request.getRequestURI());
         log.info("[param] : {}", mapper.writeValueAsString(request.getParameterMap()));
-
-        if (StringUtils.equals(request.getMethod(), HttpMethod.POST.toString())
-                || StringUtils.equals(request.getMethod(), HttpMethod.PUT.toString())) {
-            byte[] requestBody = StreamUtils.copyToByteArray(request.getInputStream());
-            log.info("[requestBody]: {}", new String(requestBody, StandardCharsets.UTF_8));
-        }
+        // Error Happen, Because of Request Body read all
+//        if (StringUtils.equals(request.getMethod(), HttpMethod.POST.toString())
+//                || StringUtils.equals(request.getMethod(), HttpMethod.PUT.toString() )) {
+//            byte[] requestBody = StreamUtils.copyToByteArray(request.getInputStream());
+//            log.info("[requestBody]: {}", new String(requestBody, StandardCharsets.UTF_8));
+//        }
         this.getHeaders(request);
         log.info("================================= Request End ====================================");
         return true;

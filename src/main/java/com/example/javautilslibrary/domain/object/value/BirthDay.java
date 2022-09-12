@@ -17,7 +17,7 @@ public class BirthDay {
 
     private LocalDate date;
 
-    public static BirthDay build(LocalDate date) throws DomainException {
+    public static BirthDay build(LocalDate date) {
         return BirthDay.builder()
                 .date(isValidBirthDay(date))
                 .build();

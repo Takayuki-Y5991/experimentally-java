@@ -16,7 +16,7 @@ public class Email {
 
     private String email;
 
-    public static Email build(String email) throws DomainException {
+    public static Email build(String email) {
         return Email.builder()
                 .email(isValidFormat(isValidFormat(email)))
                 .build();
@@ -29,7 +29,7 @@ public class Email {
      * @return
      * @throws DomainException
      */
-    private static String isValidFormat(String email) throws DomainException {
+    private static String isValidFormat(String email) {
         if (StringUtils.isBlank(email)) {
             return email;
         }

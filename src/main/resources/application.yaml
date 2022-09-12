@@ -14,9 +14,9 @@ spring:
     username: admin
     password: password
     driver-class-name: org.mariadb.jdbc.Driver
-  # Avoid Override
-  main:
-    allow-bean-definition-overriding: true
+    # Avoid Override
+    main:
+      allow-bean-definition-overriding: true
   # hibernate
   jpa:
     show-sql: true
