@@ -1,9 +1,10 @@
 package com.example.javautilslibrary.domain.service;
 
+import com.example.javautilslibrary.application.response.TokenResponse;
+import com.example.javautilslibrary.common.mapper.TokenMapper;
 import com.example.javautilslibrary.common.utils.JwtUtils;
-import com.example.javautilslibrary.domain.object.entity.Token;
+import com.example.javautilslibrary.infrastructure.entity.RedisEntity;
 import com.example.javautilslibrary.infrastructure.repository.RedisRepository;
-import com.example.javautilslibrary.infrastructure.repository.entity.RedisEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +19,21 @@ public class AuthServiceImpl implements AuthService {
     private JwtUtils jwtUtils;
     @Autowired
     private RedisRepository redisRepository;
+    @Autowired
+    private TokenMapper mapper;
+
+
+    //TODO: Domain return
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Token getToken(String value) {
+    public TokenResponse getToken(String value) {
         var expiration = LocalDate.now().plusDays(1);
         redisRepository.createBucket(RedisEntity.buildValue(value));
         var token = jwtUtils.generateToken(value, Date.from(expiration.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        return Token.build(token);
+        return null;
     }
 
     /**

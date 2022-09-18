@@ -24,6 +24,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(authorizationHandlerInterceptor)
                 .addPathPatterns("/api/v1/*");
     }
-
-
+    
 }

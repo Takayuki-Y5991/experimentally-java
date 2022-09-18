@@ -1,7 +1,7 @@
 package com.example.javautilslibrary.infrastructure.repository;
 
 import com.example.javautilslibrary.common.config.RedisConfig;
-import com.example.javautilslibrary.infrastructure.repository.entity.RedisEntity;
+import com.example.javautilslibrary.infrastructure.entity.RedisEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RSetCache;
 import org.redisson.client.codec.StringCodec;

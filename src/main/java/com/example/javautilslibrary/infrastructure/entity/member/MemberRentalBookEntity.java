@@ -1,6 +1,6 @@
-package com.example.javautilslibrary.infrastructure.repository.entity.member;
+package com.example.javautilslibrary.infrastructure.entity.member;
 
-import com.example.javautilslibrary.infrastructure.repository.entity.book.BookEntity;
+import com.example.javautilslibrary.infrastructure.entity.book.BookEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

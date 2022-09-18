@@ -1,7 +1,7 @@
 package com.example.javautilslibrary.common.utils;
 
+import com.example.javautilslibrary.infrastructure.entity.RedisEntity;
 import com.example.javautilslibrary.infrastructure.repository.RedisRepository;
-import com.example.javautilslibrary.infrastructure.repository.entity.RedisEntity;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;

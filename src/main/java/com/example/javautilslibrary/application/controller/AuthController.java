@@ -19,7 +19,7 @@ public class AuthController implements BaseController {
     @NonAuthorize
     @GetMapping("auth")
     public ResponseEntity<TokenResponse> getToken(@NonNull @RequestParam("authKey") String value) {
-        var response = TokenResponse.converter(service.getToken(value));
+        var response = service.getToken(value);
         return ResponseEntity.ok(response);
     }
 

@@ -1,4 +1,4 @@
-package com.example.javautilslibrary.infrastructure.repository.entity;
+package com.example.javautilslibrary.infrastructure.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;

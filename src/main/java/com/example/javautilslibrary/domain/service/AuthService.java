@@ -1,6 +1,6 @@
 package com.example.javautilslibrary.domain.service;
 
-import com.example.javautilslibrary.domain.object.entity.Token;
+import com.example.javautilslibrary.application.response.TokenResponse;
 
 /**
  * Authorization service interface
@@ -12,7 +12,7 @@ public interface AuthService {
      * @param value value in token subject
      * @return token
      */
-    public Token getToken(String value);
+    public TokenResponse getToken(String value);
 
     /**
      * Confirm token

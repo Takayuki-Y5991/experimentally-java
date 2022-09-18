@@ -48,7 +48,7 @@ public class LoggingHandlerInterceptor implements HandlerInterceptor {
         log.info("[param] : {}", mapper.writeValueAsString(request.getParameterMap()));
         // Error Happen, Because of Request Body read all
 //        if (StringUtils.equals(request.getMethod(), HttpMethod.POST.toString())
-//                || StringUtils.equals(request.getMethod(), HttpMethod.PUT.toString() )) {
+//                || StringUtils.equals(request.getMethod(), HttpMethod.PUT.toString())) {
 //            byte[] requestBody = StreamUtils.copyToByteArray(request.getInputStream());
 //            log.info("[requestBody]: {}", new String(requestBody, StandardCharsets.UTF_8));
 //        }

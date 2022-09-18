@@ -15,11 +15,11 @@ import java.util.Objects;
 @Builder(access = AccessLevel.PRIVATE)
 public class BirthDay {
 
-    private LocalDate date;
+    private LocalDate birthday;
 
     public static BirthDay build(LocalDate date) {
         return BirthDay.builder()
-                .date(isValidBirthDay(date))
+                .birthday(isValidBirthDay(date))
                 .build();
     }
 

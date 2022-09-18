@@ -1,4 +1,4 @@
-package com.example.javautilslibrary.infrastructure.repository.entity.member;
+package com.example.javautilslibrary.infrastructure.entity.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,5 +40,5 @@ public class MemberEntity {
     private String email;
 
     @Column(name = "contact")
-    private String Contact;
+    private String contact;
 }
