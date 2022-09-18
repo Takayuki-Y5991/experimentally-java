@@ -1,4 +1,4 @@
-package com.example.javautilslibrary.infrastructure.repository.entity.book;
+package com.example.javautilslibrary.infrastructure.entity.book;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

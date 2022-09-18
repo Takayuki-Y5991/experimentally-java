@@ -17,14 +17,12 @@ public enum Sex {
     private Integer sex;
 
     private Sex(Integer sex) {
+        this.sex = sex;
     }
 
     public static Sex isSex(Integer sex) {
         if (Objects.isNull(sex)) {
             throw new DomainException("Sex must not be null");
-        }
-        for (Sex e : Sex.values()) {
-            System.out.println(e.getSex());
         }
 
         var value = Arrays.stream(Sex.values()).filter(e -> e.getSex() == sex).findAny();

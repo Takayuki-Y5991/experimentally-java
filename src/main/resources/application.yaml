@@ -6,11 +6,17 @@ server:
 redis:
   server:
     address: redis://127.0.0.1:6379
+
+# mybatis config
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
 # Settings Spring
 spring:
   # Database
   datasource:
-    url: jdbc:mariadb://localhost:3306/local_mariadb
+    url: jdbc:mariadb://localhost:3306/local_mariadb?serverTimezone=JST
     username: admin
     password: password
     driver-class-name: org.mariadb.jdbc.Driver
@@ -28,4 +34,3 @@ spring:
   output:
     ansi:
       enabled: always
-  # Documentation

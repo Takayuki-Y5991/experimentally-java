@@ -21,6 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static springfox.documentation.service.ApiInfo.DEFAULT_CONTACT;
 
@@ -35,6 +36,8 @@ public class SwaggerConfig {
 
     public Docket swaggerPlugin() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .consumes(Set.of(MediaType.APPLICATION_JSON_VALUE))
+                .produces(Set.of(MediaType.APPLICATION_JSON_VALUE))
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.regex("/api/v1/.*"))
