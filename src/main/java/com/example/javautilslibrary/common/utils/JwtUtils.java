@@ -1,5 +1,7 @@
 package com.example.javautilslibrary.common.utils;
 
+import com.example.javautilslibrary.common.exception.AccessDeniedException;
+import com.example.javautilslibrary.domain.repository.MemberRepository;
 import com.example.javautilslibrary.infrastructure.entity.RedisEntity;
 import com.example.javautilslibrary.infrastructure.repository.RedisRepository;
 import io.jsonwebtoken.Jwts;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
 import java.util.Date;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -25,6 +28,9 @@ public class JwtUtils {
 
     @Autowired
     private RedisRepository redisRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     /**
      * SignatureAlgorithm secret key
@@ -56,7 +62,7 @@ public class JwtUtils {
         return Jwts.parserBuilder()
                 .setSigningKey(KEY)
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
     }
@@ -71,14 +77,20 @@ public class JwtUtils {
             return false;
         }
         // Check format to bearer token
-        if (authorization.contains("Bearer ")) {
+        if (!authorization.contains("Bearer ")) {
             return false;
         }
         // Get id from token
         String token = authorization.substring(7);
         String id = parseToken(token);
 
+        var member = memberRepository.fetchByAccountName(id);
+
+        if (Objects.isNull(member)) {
+            throw new AccessDeniedException("Incorrect token, Access Denied");
+        }
+
         // Check legitimacy　subject value
-        return redisRepository.compareCacheValue(RedisEntity.buildValue(id));
+        return redisRepository.compareCacheValue(RedisEntity.buildValue(id, String.valueOf(member.getMemberId())));
     };
 }

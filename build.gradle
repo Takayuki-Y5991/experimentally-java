@@ -37,6 +37,14 @@ dependencies {
     annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.5.2.Final'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.4'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.3'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.13.4'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-parameter-names
+    implementation group: 'com.fasterxml.jackson.module', name: 'jackson-module-parameter-names', version: '2.13.4'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jdk8
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.13.4'
 
 
     /* Documentation */
@@ -48,6 +56,9 @@ dependencies {
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.0.6'
     // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
     implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.2.2'
+    // https://mvnrepository.com/artifact/org.mybatis.dynamic-sql/mybatis-dynamic-sql
+    implementation group: 'org.mybatis.dynamic-sql', name: 'mybatis-dynamic-sql', version: '1.4.0'
+
 
     /* Redis */
     implementation 'org.redisson:redisson:3.17.6'
@@ -59,6 +70,11 @@ dependencies {
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+    /* Security */
+    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+    implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.7.3'
+
 }
 
 tasks.named('test') {

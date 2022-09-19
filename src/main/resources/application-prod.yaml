@@ -27,7 +27,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   # Logging Color

@@ -9,4 +9,9 @@ public class Constance {
      * contact format
      */
     public static final String CONTACT_FORMAT = "0\\d{1,4}-\\d{1,4}-\\d{4}";
+
+    /**
+     * account name format
+     */
+    public static final String ACCOUNT_NAME = "^[A-Za-z0-9]{4,20}$";
 }

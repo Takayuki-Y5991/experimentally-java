@@ -15,6 +15,20 @@ public interface MemberService {
     void createMember(MemberRequest request);
 
     /**
+     * delete member by member id
+     *
+     * @param memberId
+     */
+    void deleteMember(Long memberId);
+
+    /**
+     * update member by member id and account name
+     *
+     * @param request
+     */
+    void updateMember(MemberRequest request);
+
+    /**
      * fetch member by member_id
      *
      * @param memberId memberId

@@ -3,23 +3,34 @@ package com.example.javautilslibrary.application.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-
+@NotNull
 public class MemberRequest {
+
     @JsonProperty("memberId")
     private Long memberId;
+    @JsonProperty("accountName")
+    private String accountName;
+    @NotBlank
     @JsonProperty("name")
     private String name;
+    @NotBlank
     @JsonProperty("sex")
     private Integer sex;
+    @NotBlank
     @JsonProperty("email")
     private String email;
+    @NotBlank
     @JsonProperty("password")
     private String password;
+    @NotNull
     @JsonProperty("birthday")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
+    @NotBlank
     @JsonProperty("contact")
     private String contact;
 
@@ -33,6 +44,14 @@ public class MemberRequest {
 
     public void setMemberId(Long memberId) {
         this.memberId = memberId;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     public String getName() {

@@ -12,20 +12,24 @@ import java.util.Objects;
 @Getter
 public enum BookStatus {
     BE(0),
-    RENTAL(1);
+    RENTAL(1),
+    RESERVING(2);
 
     private int status;
 
     private BookStatus(int i) {
     }
 
-    public static void isStatus(int status) {
+    public static BookStatus isStatus(int status) {
         if (Objects.isNull(status)) {
-            return;
+            return BookStatus.BE;
+        }
+
+        var value = Arrays.stream(BookStatus.values()).filter(e -> e.getStatus() == status).findAny();
+        if (value.isPresent()) {
+            throw new IllegalStateException("Book status is valid, you check value");
         } else {
-            var value = Arrays.stream(BookStatus.values()).filter(e -> e.getStatus() == status).findAny();
-            if (value.isPresent())
-                throw new IllegalStateException("Book status is valid, you check value");
+            return value.get();
         }
     }
 }

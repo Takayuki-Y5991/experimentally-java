@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class MemberResponse {
     private Long memberId;
+    private String accountName;
     private String name;
     private Integer sex;
     private String email;

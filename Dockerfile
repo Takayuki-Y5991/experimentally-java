@@ -8,4 +8,4 @@ RUN gradle build --no-daemon -x test
 FROM openjdk:17-jdk-alpine
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/app.jar /app/app.jar
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java","-Dspring.profiles.active=prod" ,"-jar", "/app/app.jar"]

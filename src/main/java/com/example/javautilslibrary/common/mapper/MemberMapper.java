@@ -15,24 +15,28 @@ import java.util.stream.Collectors;
 @Mapper(uses = EnumConverter.class, config = ConfigMapper.class)
 public interface MemberMapper {
 
+    @Mapping(target = "accountName", qualifiedByName = {"EnumConverter", "fromAccountName"})
     @Mapping(target = "sex", qualifiedByName = {"EnumConverter", "fromSex"})
     @Mapping(target = "birthday", qualifiedByName = {"EnumConverter", "fromBirthday"})
     @Mapping(target = "email", qualifiedByName = {"EnumConverter", "fromEmail"})
     @Mapping(target = "contact", qualifiedByName = {"EnumConverter", "fromContact"})
     MemberEntity toEntity(Member member);
 
+    @Mapping(target = "accountName", qualifiedByName = {"EnumConverter", "toAccountName"})
     @Mapping(target = "sex", qualifiedByName = {"EnumConverter", "toSex"})
     @Mapping(target = "birthday", qualifiedByName = {"EnumConverter", "toBirthday"})
     @Mapping(target = "email", qualifiedByName = {"EnumConverter", "toEmail"})
     @Mapping(target = "contact", qualifiedByName = {"EnumConverter", "toContact"})
     Member toDomain(MemberEntity member);
 
+    @Mapping(target = "accountName", qualifiedByName = {"EnumConverter", "toAccountName"})
     @Mapping(target = "sex", qualifiedByName = {"EnumConverter", "toSex"})
     @Mapping(target = "birthday", qualifiedByName = {"EnumConverter", "toBirthday"})
     @Mapping(target = "email", qualifiedByName = {"EnumConverter", "toEmail"})
     @Mapping(target = "contact", qualifiedByName = {"EnumConverter", "toContact"})
     Member toDomain(MemberRequest request);
 
+    @Mapping(target = "accountName", qualifiedByName = {"EnumConverter", "fromAccountName"})
     @Mapping(target = "sex", qualifiedByName = {"EnumConverter", "fromSex"})
     @Mapping(target = "birthday", qualifiedByName = {"EnumConverter", "fromBirthday"})
     @Mapping(target = "email", qualifiedByName = {"EnumConverter", "fromEmail"})

@@ -14,20 +14,14 @@ import java.util.Map;
 @Getter
 public class RedisEntity {
 
-    /**
-     * Secret-Key is token decryption key used
-     */
-    private final String authKey = "Secret-Key";
+    private String key;
     private String value;
     private List<String> values;
     private Map<String, String> map;
 
-    public static RedisEntity buildDefault() {
-        return RedisEntity.builder().build();
-    }
-
-    public static RedisEntity buildValue(String value) {
+    public static RedisEntity buildValue(String key, String value) {
         return RedisEntity.builder()
+                .key(key)
                 .value(value)
                 .build();
     }
