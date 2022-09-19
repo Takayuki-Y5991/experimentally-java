@@ -9,8 +9,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.RequestParameterBuilder;
 import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ParameterType;
+import springfox.documentation.service.RequestParameter;
 import springfox.documentation.service.Response;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -20,6 +23,7 @@ import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -33,11 +37,11 @@ public class SwaggerConfig {
     private TypeResolver typeResolver;
 
     @Bean
-
     public Docket swaggerPlugin() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .consumes(Set.of(MediaType.APPLICATION_JSON_VALUE))
                 .produces(Set.of(MediaType.APPLICATION_JSON_VALUE))
+                .globalRequestParameters(globalParameters())
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.regex("/api/v1/.*"))
@@ -46,6 +50,16 @@ public class SwaggerConfig {
                 .additionalModels(typeResolver.resolve(ApiErrorResponse.class))
                 .globalResponses(HttpMethod.GET, getErrorResponse())
                 .globalResponses(HttpMethod.POST, getErrorResponse());
+    }
+
+    private List<RequestParameter> globalParameters() {
+        var authTokenHeader = new RequestParameterBuilder()
+                .name("Authorization")
+                .required(false)
+                .in(ParameterType.HEADER)
+                .description("Basic Auth Token, Adding Prefix [Bearer ]")
+                .build();
+        return Collections.singletonList(authTokenHeader);
     }
 
     private List<Response> getErrorResponse() {

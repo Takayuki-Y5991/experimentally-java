@@ -24,6 +24,9 @@ public class MemberEntity {
     @Column(name = "member_id")
     private Long memberId;
 
+    @Column(name = "accountName", nullable = false, length = 20, unique = true)
+    private String accountName;
+
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
@@ -39,6 +42,6 @@ public class MemberEntity {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "contact")
+    @Column(name = "contact", nullable = false)
     private String contact;
 }

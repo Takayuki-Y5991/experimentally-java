@@ -17,13 +17,12 @@ public class RedisRepository implements InMemoryRepository<RedisEntity> {
     @Autowired
     private RedisConfig client;
 
-
     /**
      * {@inheritDoc}
      */
     @Override
     public void createBucket(RedisEntity entity) {
-        RSetCache<String> bucket = this.client.getClient().getSetCache(entity.getAuthKey(), StringCodec.INSTANCE);
+        RSetCache<String> bucket = this.client.getClient().getSetCache(entity.getKey(), StringCodec.INSTANCE);
         bucket.add(entity.getValue(), 1, TimeUnit.DAYS);
     }
 
@@ -32,9 +31,9 @@ public class RedisRepository implements InMemoryRepository<RedisEntity> {
      */
     @Override
     public boolean getBucketValue(RedisEntity entity) {
-        RSetCache<String> bucket = this.client.getClient().getSetCache(entity.getAuthKey(), StringCodec.INSTANCE);
+        RSetCache<String> bucket = this.client.getClient().getSetCache(entity.getKey(), StringCodec.INSTANCE);
         var result = bucket.readAll().stream().filter(e -> StringUtils.equals(e, entity.getValue())).findAny();
-        return Objects.nonNull(bucket.getName());
+        return Objects.nonNull(result.get());
     }
 
     /**
@@ -42,7 +41,7 @@ public class RedisRepository implements InMemoryRepository<RedisEntity> {
      */
     @Override
     public boolean compareCacheValue(RedisEntity entity) {
-        RSetCache<String> bucket = this.client.getClient().getSetCache(entity.getAuthKey(), StringCodec.INSTANCE);
+        RSetCache<String> bucket = this.client.getClient().getSetCache(entity.getKey(), StringCodec.INSTANCE);
         var target = bucket.readAll().stream().filter(e -> StringUtils.equals(e, entity.getValue())).findAny();
         return target.isPresent();
     }

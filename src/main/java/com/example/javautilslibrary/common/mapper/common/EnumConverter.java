@@ -1,9 +1,6 @@
 package com.example.javautilslibrary.common.mapper.common;
 
-import com.example.javautilslibrary.domain.object.value.BirthDay;
-import com.example.javautilslibrary.domain.object.value.Contact;
-import com.example.javautilslibrary.domain.object.value.Email;
-import com.example.javautilslibrary.domain.object.value.Sex;
+import com.example.javautilslibrary.domain.object.value.*;
 import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +9,17 @@ import java.time.LocalDate;
 @Component
 @Named("EnumConverter")
 public class EnumConverter {
+
+    @Named("toAccountName")
+    public AccountName valueToAccountNameConverter(String target) {
+        return AccountName.build(target);
+    }
+
+    @Named("fromAccountName")
+    public String accountNameToValueConverter(AccountName target) {
+        return target.getAccountName();
+    }
+
     @Named("toSex")
     public Sex valueToSexConverter(Integer target) {
         return Sex.isSex(target);

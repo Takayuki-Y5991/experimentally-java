@@ -41,15 +41,12 @@ public class AuthorizationHandlerInterceptor implements HandlerInterceptor {
         // Get process method information
         Method method = ((HandlerMethod) handler).getMethod();
         // Non Authorization processing when method given @NonAuthorize
-        if (Objects.nonNull(AnnotationUtils.findAnnotation(method, NonAuthorize.class))
-                | Objects.nonNull(AnnotationUtils.findAnnotation(method, NonAuthorize.class))) {
+        if (Objects.nonNull(AnnotationUtils.findAnnotation(method, NonAuthorize.class))) {
             return true;
         }
         // Get process controller information
         Class<?> controller = method.getDeclaringClass();
-        if (Objects.nonNull(AnnotationUtils.findAnnotation(controller, Authorize.class))
-                && Objects.nonNull(AnnotationUtils.findAnnotation(method, Authorize.class))) {
-
+        if (Objects.nonNull(AnnotationUtils.findAnnotation(method, Authorize.class))) {
             // Check authorization
             if (!jwtUtils.authorize.test(request)) {
                 throw new AccessDeniedException("Access denied");

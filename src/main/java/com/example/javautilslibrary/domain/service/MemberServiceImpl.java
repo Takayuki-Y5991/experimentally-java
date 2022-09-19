@@ -43,6 +43,32 @@ public class MemberServiceImpl implements MemberService {
      * {@inheritDoc}
      */
     @Override
+    @Transactional
+    public void deleteMember(Long memberId) {
+        var result = memberRepository.deleteById(memberId);
+        if (Objects.isNull(result)) {
+            throw new ClientException("failure to delete Member");
+        }
+    }
+
+    /**
+     * @param request
+     */
+    @Override
+    @Transactional
+    public void updateMember(MemberRequest request) {
+        var domain = mapper.toDomain(request);
+        var result = memberRepository.updateMember(mapper.toEntity(domain));
+        if (Objects.isNull(result)) {
+            throw new ClientException("failure to update Member");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional(readOnly = true)
     public MemberResponse findById(Long memberId) {
         var result = memberRepository.fetchById(memberId);
         if (Objects.isNull(result)) {
@@ -55,6 +81,7 @@ public class MemberServiceImpl implements MemberService {
      * {@inheritDoc}
      */
     @Override
+    @Transactional(readOnly = true)
     public List<MemberResponse> findAll() {
         var result = memberRepository.fetchAll();
         if (CollectionUtils.isEmpty(result)) {

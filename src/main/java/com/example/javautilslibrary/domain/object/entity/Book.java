@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Book extends Domain<Book> {
-
     private String bookId;
     private String title;
     private String author;

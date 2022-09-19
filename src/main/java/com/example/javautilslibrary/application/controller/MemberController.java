@@ -2,10 +2,11 @@ package com.example.javautilslibrary.application.controller;
 
 import com.example.javautilslibrary.application.request.MemberRequest;
 import com.example.javautilslibrary.application.response.CreatedResponse;
+import com.example.javautilslibrary.application.response.DeletedResponse;
 import com.example.javautilslibrary.application.response.NoContentResponse;
+import com.example.javautilslibrary.common.config.anotation.Authorize;
 import com.example.javautilslibrary.common.config.anotation.NonAuthorize;
 import com.example.javautilslibrary.domain.service.MemberService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,14 @@ public class MemberController implements BaseController {
         return ResponseEntity.ok(CreatedResponse.build("Member"));
     }
 
-    @NonAuthorize
+    @Authorize
+    @DeleteMapping(value = "member/{memberId}")
+    public ResponseEntity<DeletedResponse> deleteMember(@PathVariable(name = "memberId") Long memberId) {
+        service.deleteMember(memberId);
+        return ResponseEntity.ok(DeletedResponse.build("Member"));
+    }
+
+    @Authorize
     @GetMapping(value = "member")
     public ResponseEntity<Object> getAllMemberInformation() {
         var result = service.findAll();
@@ -36,14 +44,12 @@ public class MemberController implements BaseController {
                 result : NoContentResponse.build("Members"));
     }
 
-    @NonAuthorize
+    @Authorize
     @GetMapping(value = "member/{memberId}")
-    public ResponseEntity<Object> getMemberInformation(@PathVariable(name = "memberId") Long memberId) throws JsonProcessingException {
+    public ResponseEntity<Object> getMemberInformation(@PathVariable(name = "memberId") Long memberId) {
         var result = service.findById(memberId);
-        mapper.writeValueAsString(result);
         return ResponseEntity.ok(Objects.nonNull(result) ?
                 result : NoContentResponse.build(String.format("Member id: %s", memberId)));
     }
-
 
 }

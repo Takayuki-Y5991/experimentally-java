@@ -1,5 +1,6 @@
 package com.example.javautilslibrary.domain.service;
 
+import com.example.javautilslibrary.application.request.AuthRequest;
 import com.example.javautilslibrary.application.response.TokenResponse;
 
 /**
@@ -12,12 +13,12 @@ public interface AuthService {
      * @param value value in token subject
      * @return token
      */
-    public TokenResponse getToken(String value);
+    public TokenResponse getToken(AuthRequest value);
 
     /**
      * Confirm token
      *
-     * @return boolean
+     * @return token
      */
-    public boolean confirmTokenKey(String value);
+    public TokenResponse refreshToken(String token);
 }

@@ -15,4 +15,10 @@ public interface MemberRepository {
     Member fetchById(Long memberId);
 
     List<Member> fetchAll();
+
+    Member fetchByAccountName(String accountName);
+
+    Boolean deleteById(Long memberId);
+
+    Member updateMember(MemberEntity member);
 }
