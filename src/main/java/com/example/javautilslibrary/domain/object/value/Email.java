@@ -34,7 +34,7 @@ public class Email {
             return email;
         }
         if (!email.matches(Constance.MAIL_FORMAT)) {
-            throw new DomainException("Email is invalid format, check your email");
+            throw new DomainException("Email is invalid format, check your email [ex: 〇〇@gmail.com]");
         }
         return email;
     }

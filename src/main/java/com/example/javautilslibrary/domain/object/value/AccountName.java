@@ -24,7 +24,7 @@ public class AccountName {
             return null;
         }
         if (!accountName.matches(Constance.ACCOUNT_NAME)) {
-            throw new DomainException("Account name is invalid format, check your account name");
+            throw new DomainException("Account name is invalid format, check your account name [ex: account1]");
         }
         return accountName;
     }

@@ -9,16 +9,18 @@ services:
       - "9000:8080"
     tty: true
     depends_on:
-      - redis
       - mariadb
+      - redis
     networks:
       - spring-cloud-network
   redis:
     container_name: redis
-    hostname: redis
-    image: redis:6.2-alpine
+    image: redis:6.2
     ports:
       - "6379:6379"
+    volumes:
+      - ./redis/data:/data
+    restart: always
     networks:
       - spring-cloud-network
   mariadb:
@@ -28,9 +30,10 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mariadb/initdb.d/:/docker-entrypoint-initdb.d
-      - ./mariadb/config/:var/mysql
+      - ./mariadb/initdb.d:/docker-entrypoint-initdb.d
+      - ./mariadb/db:/var/lib/mysql
     environment:
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: local_mariadb
       MYSQL_USER: admin
       MYSQL_PASSWORD: password

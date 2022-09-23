@@ -43,6 +43,7 @@ public interface MemberMybatis extends CommonSelectMapper, CommonInsertMapper<Me
             Optional.ofNullable(map.get(memberId.name())).ifPresent(v -> t.setMemberId((Long) v));
             Optional.ofNullable(map.get(accountName.name())).ifPresent(v -> t.setAccountName((String) v));
             Optional.ofNullable(map.get(birthday.name())).ifPresent(v -> t.setBirthday(ConvertUtils.toLocalDate((Date) v)));
+            Optional.ofNullable(map.get(name.name())).ifPresent(v -> t.setName((String) v));
             Optional.ofNullable(map.get(contact.name())).ifPresent(v -> t.setContact((String) v));
             Optional.ofNullable(map.get(email.name())).ifPresent(v -> t.setEmail((String) v));
             Optional.ofNullable(map.get(password.name())).ifPresent(v -> t.setPassword((String) v));

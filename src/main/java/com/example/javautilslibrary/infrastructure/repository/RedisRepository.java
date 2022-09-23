@@ -1,11 +1,9 @@
 package com.example.javautilslibrary.infrastructure.repository;
 
-import com.example.javautilslibrary.common.config.RedisConfig;
 import com.example.javautilslibrary.infrastructure.entity.RedisEntity;
 import org.apache.commons.lang3.StringUtils;
-import org.redisson.api.RSetCache;
-import org.redisson.client.codec.StringCodec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Objects;
@@ -15,15 +13,15 @@ import java.util.concurrent.TimeUnit;
 public class RedisRepository implements InMemoryRepository<RedisEntity> {
 
     @Autowired
-    private RedisConfig client;
+    private RedisTemplate<String, String> client;
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void createBucket(RedisEntity entity) {
-        RSetCache<String> bucket = this.client.getClient().getSetCache(entity.getKey(), StringCodec.INSTANCE);
-        bucket.add(entity.getValue(), 1, TimeUnit.DAYS);
+        this.client.opsForValue().set(entity.getKey(), entity.getValue());
+        this.client.expire(entity.getKey(), 1, TimeUnit.HOURS);
     }
 
     /**
@@ -31,9 +29,8 @@ public class RedisRepository implements InMemoryRepository<RedisEntity> {
      */
     @Override
     public boolean getBucketValue(RedisEntity entity) {
-        RSetCache<String> bucket = this.client.getClient().getSetCache(entity.getKey(), StringCodec.INSTANCE);
-        var result = bucket.readAll().stream().filter(e -> StringUtils.equals(e, entity.getValue())).findAny();
-        return Objects.nonNull(result.get());
+        var result = this.client.opsForValue().get(entity.getKey());
+        return Objects.nonNull(result);
     }
 
     /**
@@ -41,8 +38,7 @@ public class RedisRepository implements InMemoryRepository<RedisEntity> {
      */
     @Override
     public boolean compareCacheValue(RedisEntity entity) {
-        RSetCache<String> bucket = this.client.getClient().getSetCache(entity.getKey(), StringCodec.INSTANCE);
-        var target = bucket.readAll().stream().filter(e -> StringUtils.equals(e, entity.getValue())).findAny();
-        return target.isPresent();
+        var result = this.client.opsForValue().get(entity.getKey());
+        return StringUtils.equals(result, result);
     }
 }

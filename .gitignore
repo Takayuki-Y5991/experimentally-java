@@ -35,3 +35,5 @@ out/
 
 ### VS Code ###
 .vscode/
+/mariadb/db/
+/redis/data/

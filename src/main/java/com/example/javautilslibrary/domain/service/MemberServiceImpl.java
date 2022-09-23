@@ -81,6 +81,7 @@ public class MemberServiceImpl implements MemberService {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public List<MemberResponse> findAll() {
         var result = memberRepository.fetchAll();
