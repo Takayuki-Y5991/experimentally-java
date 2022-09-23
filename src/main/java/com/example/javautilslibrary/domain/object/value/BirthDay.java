@@ -34,7 +34,7 @@ public class BirthDay {
         if (Objects.isNull(date)) {
             throw new DomainException("Birthday must not be null");
         }
-        if (date.isBefore(LocalDate.now())) {
+        if (date.isAfter(LocalDate.now())) {
             throw new DomainException("Birthday is invalid, your input future date");
         }
         return date;

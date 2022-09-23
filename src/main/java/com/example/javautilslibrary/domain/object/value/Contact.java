@@ -24,7 +24,7 @@ public class Contact {
             return contact;
         }
         if (!contact.matches(Constance.CONTACT_FORMAT)) {
-            throw new DomainException("Contact is invalid format, check your contact");
+            throw new DomainException("Contact is invalid format, check your contact [ex: 000-0000-0000]");
         }
         return contact;
     }

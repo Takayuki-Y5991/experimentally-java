@@ -59,4 +59,5 @@ public class EnumConverter {
     public String contactToValueConverter(Contact target) {
         return target.getContact();
     }
+    
 }

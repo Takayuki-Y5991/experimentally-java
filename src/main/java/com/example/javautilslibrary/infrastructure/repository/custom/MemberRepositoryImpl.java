@@ -89,6 +89,7 @@ public class MemberRepositoryImpl implements MemberRepository {
      * @return
      */
     @Override
+    @SuppressWarnings("unchecked")
     public List<Member> fetchAll() {
         SelectStatementProvider sql = select(MEMBER.allColumns())
                 .from(MEMBER)
@@ -110,7 +111,7 @@ public class MemberRepositoryImpl implements MemberRepository {
                 .build()
                 .render(MYBATIS3);
         var result = Optional.ofNullable(mybatis.selectOne(sql, MEMBER.mapper));
-        return result.isPresent() ? mapper.toDomain(result.get()) : null;
+        return result.map(memberEntity -> mapper.toDomain(memberEntity)).orElse(null);
     }
 
     /**

@@ -2,11 +2,6 @@
 server:
   port: 8080
 
-# Redisson Server
-redis:
-  server:
-    address: redis://127.0.0.1:6379
-
 # mybatis config
 mybatis:
   configuration:
@@ -38,3 +33,7 @@ spring:
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
+  # Redis
+  redis:
+    host: 127.0.0.1
+    port: 6379

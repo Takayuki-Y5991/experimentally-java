@@ -25,7 +25,7 @@ public enum Sex {
             throw new DomainException("Sex must not be null");
         }
 
-        var value = Arrays.stream(Sex.values()).filter(e -> e.getSex() == sex).findAny();
+        var value = Arrays.stream(Sex.values()).filter(e -> Objects.equals(e.getSex(), sex)).findAny();
         if (!value.isPresent()) {
             throw new DomainException("Sex is valid, you check value");
         } else {
