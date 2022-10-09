@@ -16,7 +16,7 @@
 
 --  テーブル local_mariadb.book の構造をダンプしています
 CREATE TABLE IF NOT EXISTS `book` (
-  `book_id` binary(36) NOT NULL,
+  `book_id` varchar(36) NOT NULL,
   `author` varchar(50) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `image_url` varchar(255) DEFAULT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `book_rental` (
   `book_rental_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `checkout_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `return_date` datetime(6) NOT NULL,
-  `book_id` binary(36) DEFAULT NULL,
+  `book_id` varchar(36) DEFAULT NULL,
   `member_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`book_rental_id`),
   KEY `FK8mbgvc4eb0i0cvkg2sea83f76` (`book_id`),
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `book_return` (
 --  テーブル local_mariadb.book_tag の構造をダンプしています
 CREATE TABLE IF NOT EXISTS `book_tag` (
   `tag_id` bigint(20) NOT NULL,
-  `book_id` binary(36) NOT NULL,
+  `book_id` varchar(36) NOT NULL,
   PRIMARY KEY (`tag_id`,`book_id`),
   UNIQUE KEY `UK_f045npn9q5w2ob1bfumk39a6i` (`tag_id`),
   UNIQUE KEY `UK_seghejmqft5qpx8wdjog49m2r` (`book_id`),
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `book_tag` (
 --  テーブル local_mariadb.member_rental_book の構造をダンプしています
 CREATE TABLE IF NOT EXISTS `member_rental_book` (
   `member_id` bigint(20) NOT NULL,
-  `book_id` binary(36) NOT NULL,
+  `book_id` varchar(36) NOT NULL,
   PRIMARY KEY (`member_id`,`book_id`),
   UNIQUE KEY `UK_dvjtcnbew49bs9keyi9hgdo7r` (`member_id`),
   UNIQUE KEY `UK_hncxperuu74cgxpkivvatfwmj` (`book_id`),

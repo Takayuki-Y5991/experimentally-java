@@ -37,3 +37,10 @@ spring:
   redis:
     host: redis
     port: 6379
+# Actuator
+management:
+  endpoint:
+    web:
+      base-path: /actuator
+  server:
+    port: 8082

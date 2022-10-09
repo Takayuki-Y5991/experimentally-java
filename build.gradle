@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.3'
     id 'io.spring.dependency-management' version '1.0.13.RELEASE'
     id 'java'
+    id "com.thinkimi.gradle.MybatisGenerator" version "2.4"
 }
 
 group = 'com.example'
@@ -45,6 +46,8 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.module', name: 'jackson-module-parameter-names', version: '2.13.4'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jdk8
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.13.4'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.7.4'
 
 
     /* Documentation */
@@ -52,12 +55,16 @@ dependencies {
     implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 
     /* DB */
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.30'
     // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.0.6'
     // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
     implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.2.2'
     // https://mvnrepository.com/artifact/org.mybatis.dynamic-sql/mybatis-dynamic-sql
     implementation group: 'org.mybatis.dynamic-sql', name: 'mybatis-dynamic-sql', version: '1.4.0'
+    // https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core
+    implementation group: 'org.mybatis.generator', name: 'mybatis-generator-core', version: '1.4.1'
 
 
     /* Redis */
@@ -78,6 +85,18 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
     implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.7.3'
 
+}
+
+// Mybatis Generator Configuration
+mybatisGenerator {
+    verbose = true
+    configFile = "src/main/resources/mybatis/generatorConfiguration.xml"
+
+    dependencies {
+        mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.4.1'
+        mybatisGenerator 'mysql:mysql-connector-java:8.0.30'
+        mybatisGenerator 'org.mariadb.jdbc:mariadb-java-client:3.0.6'
+    }
 }
 
 tasks.named('test') {

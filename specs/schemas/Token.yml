@@ -1,0 +1,6 @@
+type: object
+properties:
+  token:
+    type: String
+    example: XXXXXXXXX-XXXXXXXXX-XXXXXXXXXXX
+    description: JWT Token

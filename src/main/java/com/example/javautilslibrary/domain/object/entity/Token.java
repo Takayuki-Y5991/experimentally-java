@@ -1,7 +1,11 @@
 package com.example.javautilslibrary.domain.object.entity;
 
 import com.example.javautilslibrary.domain.object.Domain;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Builder(access = AccessLevel.PRIVATE)

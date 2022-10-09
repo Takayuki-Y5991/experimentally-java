@@ -8,6 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper(config = ConfigMapper.class)
 public interface TokenMapper {
     TokenResponse toTokenResponse(Token domain);
-    
+
     Token toDomain(String token);
 }

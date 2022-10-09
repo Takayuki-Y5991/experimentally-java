@@ -1,0 +1,82 @@
+openapi: 3.0.0
+info:
+  title: Auth API
+  description: Authentication API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api/v1/
+    description: authentication servers
+
+paths:
+  /auth:
+    post:
+      summary: Generate Token
+      operationId: getToken
+      tags:
+        - AuthApi
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              title: AuthRequest
+              $ref: ../schemas/Auth.yml
+      responses:
+        200:
+          description: Generate Token Success
+          content:
+            application/json:
+              schema:
+                title: TokenResponse
+                $ref: ../schemas/Token.yml
+        400:
+          description: Invalid Request Parameter
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/ApiErrorResponse.yml
+        403:
+          description: Forbidden, An Match Account name or Password
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/ApiErrorResponse.yml
+  /auth/refresh:
+    post:
+      summary: Refresh Token
+      operationId: refreshTokenToken
+      tags:
+        - AuthApi
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              title: TokenRequest
+              $ref: ../schemas/Token.yml
+      responses:
+        200:
+          description: Refresh Token Success
+          content:
+            application/json:
+              schema:
+                title: TokenResponse
+                $ref: ../schemas/Token.yml
+        400:
+          description: Token is Null or Empty.
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/ApiErrorResponse.yml
+        403:
+          description: Forbidden, Incorrect token
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/ApiErrorResponse.yml
+

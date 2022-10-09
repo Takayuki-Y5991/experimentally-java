@@ -5,7 +5,7 @@ import com.example.javautilslibrary.application.response.MemberResponse;
 import com.example.javautilslibrary.common.config.ConfigMapper;
 import com.example.javautilslibrary.common.mapper.common.EnumConverter;
 import com.example.javautilslibrary.domain.object.entity.Member;
-import com.example.javautilslibrary.infrastructure.entity.member.MemberEntity;
+import com.example.javautilslibrary.infrastructure.entity.mybatis.MemberEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

@@ -2,7 +2,12 @@ package com.example.javautilslibrary.domain.object.entity;
 
 import com.example.javautilslibrary.domain.object.Domain;
 import com.example.javautilslibrary.domain.object.value.BookStatus;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -4,6 +4,7 @@ import com.example.javautilslibrary.application.request.AuthRequest;
 import com.example.javautilslibrary.application.response.TokenResponse;
 import com.example.javautilslibrary.common.config.anotation.NonAuthorize;
 import com.example.javautilslibrary.domain.service.AuthService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 public class AuthController implements BaseController {
 
