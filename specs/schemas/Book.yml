@@ -1,40 +1,43 @@
-type: object
-properties:
-  bookId:
-    type: string
-    format:
-      - uuid
-    example: 7c93708e-619f-44bc-b2a3-9672bcb3fb89
-    description: Book ID
-  title:
-    type: string
-    example: Java Libraries
-    description: Book Title
-  author:
-    type: string
-    example: Sun Microsystems
-    description: Author
-  publisher:
-    type: string
-    example: Java corporation
-    description: Publisher company
-  publishDate:
-    type: string
-    format:
-      - date
-    example: 1970-01-01
-    description: Publish date
-  imageUrl:
-    type: string
-    example: https://www.google.com/
-    description: Image URL, ex. s3 artifacts URL
-  status:
-    type: string
-    example: 1
-    description: Book Status,  1 - Can Rental, 2 - Rental, 3 - RESERVED
-  tags:
-    type: array
-    items: string
-    description: Book Tag IDs
-    example: [1, 2, 3]
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        bookId:
+          type: string
+          format:
+            - uuid
+          example: 7c93708e-619f-44bc-b2a3-9672bcb3fb89
+          description: Book ID
+        title:
+          type: string
+          example: Java Libraries
+          description: Book Title
+        author:
+          type: string
+          example: Sun Microsystems
+          description: Author
+        publisher:
+          type: string
+          example: Java corporation
+          description: Publisher company
+        publishDate:
+          type: string
+          format:
+            - date
+          example: 1970-01-01
+          description: Publish date
+        imageUrl:
+          type: string
+          example: https://www.google.com/
+          description: Image URL, ex. s3 artifacts URL
+        status:
+          type: string
+          example: 1
+          description: Book Status,  1 - Can Rental, 2 - Rental, 3 - RESERVED
+        tags:
+          type: array
+          items: string
+          description: Book Tag IDs
+          example: [ 1, 2, 3 ]
     

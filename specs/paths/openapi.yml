@@ -1,83 +1,78 @@
-openapi: 3.0.0
+openapi: 3.0.1
 info:
-  title: Auth API
-  description: Authentication API
+  title: Open API MERGER
+  description: All files merged by open api merger
   version: 1.0.0
-
 servers:
-  - url: http://localhost:8080/api/v1/
-    description: authentication servers
-
+- url: http://localhost:8080/api/v1/
+  description: authentication servers
 paths:
   /auth:
     post:
+      tags:
+      - AuthApi
       summary: Generate Token
       operationId: getToken
-      tags:
-        - AuthApi
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AuthRequest'
+        required: true
       responses:
-        200:
+        "200":
           description: Generate Token Success
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
-        400:
+        "400":
           description: Invalid Request Parameter
           content:
             application/json:
               schema:
-                title: AccessDeniedException
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
-        403:
-          description: Forbidden, An Match Account name or Password
+        "403":
+          description: "Forbidden, An Match Account name or Password"
           content:
             application/json:
               schema:
-                title: AccessDeniedException
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
   /auth/refresh:
     post:
+      tags:
+      - AuthApi
       summary: Refresh Token
       operationId: refreshTokenToken
-      tags:
-        - AuthApi
       parameters:
-      - in: header
-        name: Authentication
-        description: JWT Token, Prefix Bearer
-        example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+      - name: Authentication
+        in: header
+        description: "JWT Token, Prefix Bearer"
         required: true
+        style: simple
+        explode: false
         schema:
           type: string
+        example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
       responses:
-        200:
+        "200":
           description: Refresh Token Success
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
-        400:
+        "400":
           description: Token is Null or Empty.
           content:
             application/json:
               schema:
-                title: AccessDeniedException
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
-        403:
-          description: Forbidden, Incorrect token
+        "403":
+          description: "Forbidden, Incorrect token"
           content:
             application/json:
               schema:
-                title: AccessDeniedException
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
-
 components:
   schemas:
     AuthRequest:

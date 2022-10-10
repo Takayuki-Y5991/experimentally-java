@@ -1,0 +1,41 @@
+components:
+  schemas:
+    # Response - HTTP METHOD CREATE/UPDATE
+    CreatedResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 201
+          default: 201
+          description: HTTP Status Code
+        message:
+          type: String
+          example: Created - XX
+          description: Created message, XX = target
+    # Response - HTTP METHOD DELETE
+    DeletedResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 204
+          default: 204
+          description: HTTP Status Code
+        message:
+          type: String
+          example: Deleted - XX
+          description: Deleted message, XX = target
+    # Response - HTTP METHOD GET, can't fetch resources
+    NoContentResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 204
+          default: 204
+          description: HTTP Status Code
+        message:
+          type: String
+          example: No Content - XX
+          description: No Content message, XX = target

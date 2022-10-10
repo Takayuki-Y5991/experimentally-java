@@ -3,6 +3,8 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.13.RELEASE'
     id 'java'
     id "com.thinkimi.gradle.MybatisGenerator" version "2.4"
+    id "org.openapi.generator" version "6.2.0"
+    id "com.rameshkp.openapi-merger-gradle-plugin" version "1.0.4"
 }
 
 group = 'com.example'
@@ -48,11 +50,20 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.13.4'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.7.4'
-
+    // https://mvnrepository.com/artifact/org.openapitools/openapi-generator-gradle-plugin
+    implementation group: 'org.openapitools', name: 'openapi-generator-gradle-plugin', version: '6.2.0'
+    // https://mvnrepository.com/artifact/com.rameshkp.openapi-merger-gradle-plugin/com.rameshkp.openapi-merger-gradle-plugin.gradle.plugin
+    implementation group: 'com.rameshkp.openapi-merger-gradle-plugin', name: 'com.rameshkp.openapi-merger-gradle-plugin.gradle.plugin', version: '1.0.4', ext: 'pom'
+    // https://mvnrepository.com/artifact/org.openapitools/jackson-databind-nullable
+    implementation group: 'org.openapitools', name: 'jackson-databind-nullable', version: '0.2.3'
 
     /* Documentation */
     // https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter
     implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+    // https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations
+    implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.2.2'
+    // https://mvnrepository.com/artifact/io.swagger.parser.v3/swagger-parser
+    implementation group: 'io.swagger.parser.v3', name: 'swagger-parser', version: '2.1.1'
 
     /* DB */
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
@@ -98,7 +109,67 @@ mybatisGenerator {
         mybatisGenerator 'org.mariadb.jdbc:mariadb-java-client:3.0.6'
     }
 }
+// Openapi Merge Configuration
+openApiMerger {
+    inputDirectory.set(file("$rootDir/specs/paths/".toString()))
+    output {
+        directory.set(file("$rootDir/specs/paths".toString()))
+        fileName.set("openapi")
+        fileExtension.set("yml")
+    }
+    openApi {
+        openApiVersion.set("3.0.1")
+        info {
+            title.set("Open API MERGER")
+            description.set("All files merged by open api merger")
+            version.set("1.0.0")
+        }
+    }
+}
+
+// Openapi Generator Configuration
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$rootDir/specs/paths/openapi.yml".toString()
+    outputDir = "$buildDir/generated".toString()
+    apiPackage = "org.openapi.example.api"
+    invokerPackage = "org.openapi.example.invoker"
+    modelPackage = "org.openapi.example.model"
+    generateModelTests = false
+    generateApiTests = false
+    generateModelDocumentation = false
+    generateApiDocumentation = false
+    configOptions = [
+            dataLibrary                   : "java8",
+            documentationProvider         : "springFox",
+            interfaceOnly                 : "true",
+            additionalModelTypeAnnotations: "@lombok.NoArgsConstructor; @lombok.AllArgsConstructor; @lombok.Data;"
+    ]
+}
+sourceSets {
+    main {
+        java {
+            srcDir "${openApiGenerate.outputDir.get()}/src/main/java"
+        }
+        resources {
+            srcDir "${openApiGenerate.outputDir.get()}/src/main/resources"
+        }
+    }
+}
+// Integrating plugin tasks with compiling
+tasks.openApiGenerate {
+    dependsOn tasks.mergeOpenApiFiles
+}
+compileJava {
+    dependsOn tasks.openApiGenerate
+    source "${buildDir}/generated/openapi/src/main/java"
+}
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+configurations {
+    all*.exclude module: 'logback-classic'
+    all*.exclude module: 'spring-boot-starter-logging'
 }
