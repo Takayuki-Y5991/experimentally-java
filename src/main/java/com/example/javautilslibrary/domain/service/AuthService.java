@@ -1,7 +1,8 @@
 package com.example.javautilslibrary.domain.service;
 
-import com.example.javautilslibrary.application.request.AuthRequest;
-import com.example.javautilslibrary.application.response.TokenResponse;
+
+import org.openapi.example.model.AuthRequest;
+import org.openapi.example.model.TokenResponse;
 
 /**
  * Authorization service interface

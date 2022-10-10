@@ -1,0 +1,38 @@
+components:
+  schemas:
+    Member:
+      type: object
+      properties:
+        memberId:
+          type: number
+          example: 1
+          description: Member ID
+        accountName:
+          type: String
+          example: Member-A
+          description: Account Name & Login ID, use for login
+        name:
+          type: String
+          example: Account A
+          description: Account Name
+        sex:
+          type: integer
+          example: 1
+          description: sex, 1 - Male, 2 - Female
+        email:
+          type: String
+          example: XXX@api.com
+          description: Email address
+        password:
+          type: string
+          example: XXXXXXXXX
+          description: Password
+        birthday:
+          type: string
+          format:
+            - date
+          description: Birthday
+        contact:
+          type: string
+          description: Contact, ex. Phone Number
+  

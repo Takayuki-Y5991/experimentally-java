@@ -4,7 +4,6 @@ package com.example.javautilslibrary.domain.object.value;
 import lombok.Getter;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * Book status Enum
@@ -21,10 +20,7 @@ public enum BookStatus {
     }
 
     public static BookStatus isStatus(int status) {
-        if (Objects.isNull(status)) {
-            return BookStatus.BE;
-        }
-
+        
         var value = Arrays.stream(BookStatus.values()).filter(e -> e.getStatus() == status).findAny();
         if (value.isPresent()) {
             throw new IllegalStateException("Book status is valid, you check value");

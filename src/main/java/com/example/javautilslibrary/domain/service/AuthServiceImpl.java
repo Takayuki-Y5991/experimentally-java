@@ -1,7 +1,5 @@
 package com.example.javautilslibrary.domain.service;
 
-import com.example.javautilslibrary.application.request.AuthRequest;
-import com.example.javautilslibrary.application.response.TokenResponse;
 import com.example.javautilslibrary.common.exception.AccessDeniedException;
 import com.example.javautilslibrary.common.mapper.TokenMapper;
 import com.example.javautilslibrary.common.utils.AuthUtils;
@@ -10,6 +8,9 @@ import com.example.javautilslibrary.domain.object.entity.Member;
 import com.example.javautilslibrary.domain.repository.MemberRepository;
 import com.example.javautilslibrary.infrastructure.entity.RedisEntity;
 import com.example.javautilslibrary.infrastructure.repository.RedisRepository;
+import jodd.util.StringUtil;
+import org.openapi.example.model.AuthRequest;
+import org.openapi.example.model.TokenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,8 +52,22 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     @Transactional
-    public TokenResponse refreshToken(String token) {
+    public TokenResponse refreshToken(String authorization) {
         String parsedToken = null;
+
+        if (StringUtil.isBlank(authorization)) {
+            throw new AccessDeniedException("Incorrect token, Is Blank");
+        }
+        if (authorization.length() < 8) {
+            throw new AccessDeniedException("Incorrect token, Too Short authorization");
+        }
+        // Check format to bearer token
+        if (!authorization.contains("Bearer ")) {
+            throw new AccessDeniedException("Incorrect token, Prefix Bearer");
+        }
+        // Get id from token
+        String token = authorization.substring(7);
+
         try {
             parsedToken = jwtUtils.parseToken(token);
         } catch (Exception e) {

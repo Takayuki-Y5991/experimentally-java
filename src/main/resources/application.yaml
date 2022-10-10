@@ -22,7 +22,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   # Logging Color
@@ -37,3 +37,12 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
+# Actuator
+management:
+  endpoint:
+    web:
+      base-path: /actuator
+  server:
+    port: 8082
+
+

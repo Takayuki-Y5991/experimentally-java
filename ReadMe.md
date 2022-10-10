@@ -21,6 +21,7 @@ docker-compose up --build
 - mybatis dynamic sql導入
 - MapStructカスタム
 - Passwordハッシュ化
+- Api Controller Interface 自動生成(open api generator)
 
 ## How to Use
 
@@ -48,3 +49,15 @@ Header
 
 APIの確認をGUIで行う場合は、下記を参照ください。  
 [SwaggerUI](http://localhost:9000/swagger-ui/index.html#/)
+
+## Notice
+
+1. 開発拡張を行うときのAPI作成に関して注意点   
+   ・APIを追加する際は、下記手順に従ってください。   
+   ※ 2.実行前に、[openapi.yml](./specs/paths/openapi.yml)を削除することをお忘れなく。
+
+````
+1. openapi.yml - 作成 
+2. Gradle Task - MergeOpenApiFiles実行
+3. Gredle Task - openApiGenerators実行
+````

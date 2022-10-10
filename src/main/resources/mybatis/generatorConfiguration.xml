@@ -1,0 +1,48 @@
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="DB2Tables" targetRuntime="MyBatis3DynamicSql">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/local_mariadb"
+                        userId="admin"
+                        password="password">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+        <!-- Model Settings -->
+        <javaModelGenerator targetPackage="com.example.javautilslibrary.infrastructure.entity.mybatis"
+                            targetProject="src/main/java">
+        </javaModelGenerator>
+        <!-- Client Settings -->
+        <javaClientGenerator targetPackage="com.example.javautilslibrary.infrastructure.repository.mybatis"
+                             targetProject="src/main/java">
+            <property name="rootInterface" value="org.mybatis.dynamic.sql.util.mybatis3.CommonSelectMapper"/>
+        </javaClientGenerator>
+        <!-- Tables -->
+        <!-- Book relations-->
+        <table tableName="book_tag" domainObjectName="BookTagEntity">
+            <generatedKey column="book_id" sqlStatement="SELECT uuid()"/>
+        </table>
+        <table tableName="book" domainObjectName="BookEntity">
+            <generatedKey column="book_id" sqlStatement="SELECT uuid()"/>
+        </table>
+        <table tableName="tag" domainObjectName="TagEntity">
+            <generatedKey column="tag_id" sqlStatement="SELECT LAST_INSERT_ID()"/>
+        </table>
+        <table tableName="book_rental" domainObjectName="BookRentalEntity">
+            <generatedKey column="book_rental_id" sqlStatement="SELECT LAST_INSERT_ID()"/>
+        </table>
+        <table tableName="book_return" domainObjectName="BookReturnEntity">
+            <generatedKey column="book_return_id" sqlStatement="SELECT LAST_INSERT_ID()"/>
+        </table>
+        <!-- Member relations -->
+        <table tableName="member" domainObjectName="MemberEntity">
+            <generatedKey column="member_id" sqlStatement="SELECT LAST_INSERT_ID()"/>
+        </table>
+        <table tableName="member_rental_book" domainObjectName="MemberRentalBookEntity"/>
+    </context>
+
+</generatorConfiguration>

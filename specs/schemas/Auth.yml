@@ -1,0 +1,16 @@
+components:
+  schemas:
+    Auth:
+      type: object
+      properties:
+        accountName:
+          type: string
+          example: Account-A
+          description: Account name, use for login
+        password:
+          type: string
+          example: password
+          description: Password
+      required:
+        - accountName
+        - password
