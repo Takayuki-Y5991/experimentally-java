@@ -18,7 +18,7 @@ docker-compose up --build
 - SwaggerUI
 - 認証機能(RedisとSpringSecurityを利用)
 - DDL自動生成(Local環境のみ有効)
-- mybatis dynamic sql導入
+- mybatis dynamic sql導入(Client部分自動生成)
 - MapStructカスタム
 - Passwordハッシュ化
 - Api Controller Interface 自動生成(open api generator)
@@ -52,12 +52,12 @@ APIの確認をGUIで行う場合は、下記を参照ください。
 
 ## Notice
 
-1. 開発拡張を行うときのAPI作成に関して注意点   
-   ・APIを追加する際は、下記手順に従ってください。   
-   ※ 2.実行前に、[openapi.yml](./specs/paths/openapi.yml)を削除することをお忘れなく。
+* 開発拡張を行うときのAPI作成に関して注意点
+    * specフォルダ内に開発対象のopenapiを配置してください(※[spec](specs))。
+        * path = API定義, scheme = Request
+        * Response内で利用するスキーマ定義
+    * APIを追加する際は、下記手順に従ってください。
 
 ````
-1. openapi.yml - 作成 
-2. Gradle Task - MergeOpenApiFiles実行
-3. Gredle Task - openApiGenerators実行
+Gredle Task - openApiGenerator実行
 ````
