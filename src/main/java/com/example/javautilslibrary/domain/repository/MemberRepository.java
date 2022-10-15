@@ -14,7 +14,7 @@ public interface MemberRepository {
 
     Member fetchById(Long memberId);
 
-    List<Member> fetchAll();
+    List<Member> fetchAll(Integer count);
 
     Member fetchByAccountName(String accountName);
 

@@ -4,7 +4,6 @@ import com.example.javautilslibrary.domain.object.entity.Book;
 import com.example.javautilslibrary.infrastructure.entity.mybatis.BookEntity;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Book repository
@@ -14,11 +13,10 @@ public interface BookRepository {
     /**
      * Fetch All Books
      *
-     * @param book  book, select options
      * @param limit fetch count
      * @return books
      */
-    List<Book> fetchAll(BookEntity book, Integer limit);
+    List<Book> fetchAll(Integer limit);
 
     /**
      * Fetch Books
@@ -26,7 +24,7 @@ public interface BookRepository {
      * @param id book_id
      * @return book
      */
-    Book fetchById(UUID id);
+    Book fetchById(String id);
 
     /**
      * Save Book
@@ -39,17 +37,18 @@ public interface BookRepository {
     /**
      * Book update status
      *
-     * @param id     book_id
-     * @param status status (1: Be, 2: rental, 3: reserving)
+     * @param id   book_id
+     * @param book book
      * @return book
      */
-    Book updateBook(UUID id, Integer status);
+    Book updateBook(String id, BookEntity book);
 
     /**
      * Book delete
      *
      * @param id book_id
+     * @return true: successful delete, false: failed delete
      */
-    void deleteBook(UUID id);
+    boolean deleteBook(String id);
 
 }

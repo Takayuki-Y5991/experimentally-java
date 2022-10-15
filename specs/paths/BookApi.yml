@@ -1,0 +1,234 @@
+openapi: 3.0.0
+info:
+  title: member API
+  description: Member API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api/v1/
+    description: Book servers
+
+paths:
+  /book:
+    get:
+      parameters:
+        - in: path
+          name: bookId
+          description: Book ID
+          example: 57abea48-eda6-4d6d-96f9-0cb44dbeec68
+          required: true
+          schema:
+            type: string
+      summary: Fetch Book information
+      operationId: getBookInformation
+      tags:
+        - BookApi
+      responses:
+        200:
+          description: Fetch Book information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+    post:
+      parameters:
+      - in: header
+        name: Authentication
+        description: JWT Token, Prefix Bearer
+        example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+        required: true
+        schema:
+          type: string
+      summary: create Book information
+      operationId: createBook
+      tags:
+        - BookApi
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
+      responses:
+        201:
+          description: Created Book information.
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/SucessResponse.yml#/components/schemas/CreatedResponse
+        400:
+          description: Domain Exception
+          content:
+            application/json:
+              schema:
+                title: Domain Exception
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        403:
+          description: Forbidden, Incorrect token
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        500:
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                title: ClientException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+    delete:
+      parameters:
+        - in: path
+          name: bookId
+          description: Book ID
+          example: 57abea48-eda6-4d6d-96f9-0cb44dbeec68
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authentication
+          description: JWT Token, Prefix Bearer
+          example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+          required: true
+          schema:
+            type: string
+      summary: Delete Book information
+      operationId: deleteBook
+      tags:
+        - BookApi
+      responses:
+        204:
+          description: Delete Book information.
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/SucessResponse.yml#/components/schemas/DeletedResponse
+        403:
+          description: Forbidden, Incorrect token
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        500:
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                title: ClientException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+    patch:
+      parameters:
+        - in: path
+          name: bookId
+          description: Book ID
+          example: 57abea48-eda6-4d6d-96f9-0cb44dbeec68
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authentication
+          description: JWT Token, Prefix Bearer
+          example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+          required: true
+          schema:
+            type: string
+      summary:  Update Book information
+      operationId: updateBook
+      tags:
+        - BookApi
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
+      responses:
+        204:
+          description: Update Book information.
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/SucessResponse.yml#/components/schemas/NoContentResponse
+        403:
+          description: Forbidden, Incorrect token
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        500:
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                title: ClientException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+  /books:
+    get:
+      parameters:
+        - in: query
+          name: count
+          description: fetch count
+          example: 10
+          schema:
+            type: integer
+      summary: Fetch All Book information
+      operationId: getAllBookInformation
+      tags:
+        - BookApi
+      responses:
+        200:
+          description: Fetch all Book information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookListResponse'
+components:
+  schemas:
+    BookListResponse:
+      type: object
+      description: Books Information
+      properties:
+        count:
+          type: integer
+        books:
+          description: Book information
+          items:
+            type: object
+            properties:
+              book:
+                $ref: ../schemas/Book.yml#/components/schemas/Book
+              tags:
+                type: array
+                items:
+                  $ref: ../schemas/Tag.yml#/components/schemas/Tag
+    BookRequest:
+      type: object
+      description: Book create information
+      properties:
+        book:
+          $ref: ../schemas/Book.yml#/components/schemas/Book
+        tags:
+          type: array
+          items:
+            type: integer
+    BookResponse:
+      type: object
+      description: Book information
+      properties:
+        book:
+          $ref: ../schemas/Book.yml#/components/schemas/Book
+        tags:
+          type: array
+          items:
+            $ref: ../schemas/Tag.yml#/components/schemas/Tag
+    MemberRequest:
+      $ref: ../schemas/Member.yml#/components/schemas/Member

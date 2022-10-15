@@ -1,0 +1,163 @@
+openapi: 3.0.0
+info:
+  title: member API
+  description: Member API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api/v1/
+    description: member servers
+
+paths:
+  /member:
+    get:
+      parameters:
+        - in: path
+          name: memberId
+          description: Member ID
+          example: Account-A
+          required: true
+          schema:
+            type: integer
+            format: int64
+      summary: Fetch Member information
+      operationId: getMemberInformation
+      tags:
+        - MemberApi
+      responses:
+        200:
+          description: Fetch member information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberResponse'
+        403:
+          description: Forbidden, Incorrect token
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+    post:
+      summary: create Member information
+      operationId: createMember
+      tags:
+        - MemberApi
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberRequest'
+      responses:
+        201:
+          description: Can't fetch Member information.
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/SucessResponse.yml#/components/schemas/CreatedResponse
+        400:
+          description: Domain Exception
+          content:
+            application/json:
+              schema:
+                title: Domain Exception
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        403:
+          description: Forbidden, Incorrect token
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        500:
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                title: ClientException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+    delete:
+      parameters:
+        - in: path
+          name: memberId
+          description: Member ID
+          example: Account-A
+          required: true
+          schema:
+            type: integer
+            format: int64
+      summary: Delete Member information
+      operationId: deleteMember
+      tags:
+        - MemberApi
+      responses:
+        204:
+          description: Delete Member information.
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/SucessResponse.yml#/components/schemas/DeletedResponse
+        403:
+          description: Forbidden, Incorrect token
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        500:
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                title: ClientException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+  /members:
+    get:
+      parameters:
+        - in: query
+          name: count
+          description: fetch count
+          example: 10
+          schema:
+            type: integer
+      summary: Fetch All Members information
+      operationId: getAllMemberInformation
+      tags:
+        - MemberApi
+      responses:
+        200:
+          description: Fetch all members information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberListResponse'
+        403:
+          description: Forbidden, Incorrect token
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+components:
+  schemas:
+    MemberListResponse:
+      type: object
+      description: Members Information
+      properties:
+        count:
+          type: integer
+        members:
+          description: Member information
+          items:
+            $ref: ../schemas/Member.yml#/components/schemas/Member
+    MemberResponse:
+      $ref: ../schemas/Member.yml#/components/schemas/Member
+    MemberRequest:
+      $ref: ../schemas/Member.yml#/components/schemas/Member

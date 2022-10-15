@@ -38,6 +38,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
         return new ResponseEntity<ApiErrorResponse>(ApiErrorResponse.build(HttpStatus.BAD_REQUEST.value(), ex.getMessage()), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler({ResourceNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ApiErrorResponse> handlerNotFound(Exception ex) {
         this.errorLogging(ex, HttpStatus.NOT_FOUND);

@@ -14,4 +14,9 @@ public class Constance {
      * account name format
      */
     public static final String ACCOUNT_NAME = "^[A-Za-z0-9]{4,20}$";
+
+    /**
+     * Fetch data limit
+     */
+    public static final long DEFAULT_FETCH_LIMIT = 10L;
 }

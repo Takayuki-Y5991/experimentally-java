@@ -1,6 +1,11 @@
 package com.example.javautilslibrary.common.mapper.common;
 
-import com.example.javautilslibrary.domain.object.value.*;
+import com.example.javautilslibrary.domain.object.value.AccountName;
+import com.example.javautilslibrary.domain.object.value.BirthDay;
+import com.example.javautilslibrary.domain.object.value.BookStatus;
+import com.example.javautilslibrary.domain.object.value.Contact;
+import com.example.javautilslibrary.domain.object.value.Email;
+import com.example.javautilslibrary.domain.object.value.Sex;
 import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
 
@@ -59,5 +64,14 @@ public class EnumConverter {
     public String contactToValueConverter(Contact target) {
         return target.getContact();
     }
-    
+
+    @Named("toBookStatus")
+    public BookStatus valueToBookStatusConverter(Integer target) {
+        return BookStatus.isStatus(target);
+    }
+
+    @Named("fromBookStatus")
+    public Integer bookStatusToValueConverter(BookStatus target) {
+        return target.getStatus();
+    }
 }

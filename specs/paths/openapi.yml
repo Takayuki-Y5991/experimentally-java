@@ -5,8 +5,202 @@ info:
   version: 1.0.0
 servers:
 - url: http://localhost:8080/api/v1/
+  description: Book servers
+- url: http://localhost:8080/api/v1/
   description: authentication servers
+- url: http://localhost:8080/api/v1/
+  description: member servers
 paths:
+  /book:
+    get:
+      tags:
+      - BookApi
+      summary: Fetch Book information
+      operationId: getBookInformation
+      parameters:
+      - name: bookId
+        in: path
+        description: Book ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: 57abea48-eda6-4d6d-96f9-0cb44dbeec68
+      responses:
+        "200":
+          description: Fetch Book information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookResponse'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+    post:
+      tags:
+      - BookApi
+      summary: create Book information
+      operationId: createBook
+      parameters:
+      - name: Authentication
+        in: header
+        description: "JWT Token, Prefix Bearer"
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
+        required: true
+      responses:
+        "201":
+          description: Created Book information.
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/SucessResponse.yml#/components/schemas/CreatedResponse
+        "400":
+          description: Domain Exception
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        "403":
+          description: "Forbidden, Incorrect token"
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        "500":
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+    delete:
+      tags:
+      - BookApi
+      summary: Delete Book information
+      operationId: deleteBook
+      parameters:
+      - name: bookId
+        in: path
+        description: Book ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: 57abea48-eda6-4d6d-96f9-0cb44dbeec68
+      - name: Authentication
+        in: header
+        description: "JWT Token, Prefix Bearer"
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+      responses:
+        "204":
+          description: Delete Book information.
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/SucessResponse.yml#/components/schemas/DeletedResponse
+        "403":
+          description: "Forbidden, Incorrect token"
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        "500":
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+    patch:
+      tags:
+      - BookApi
+      summary: Update Book information
+      operationId: updateBook
+      parameters:
+      - name: bookId
+        in: path
+        description: Book ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: 57abea48-eda6-4d6d-96f9-0cb44dbeec68
+      - name: Authentication
+        in: header
+        description: "JWT Token, Prefix Bearer"
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
+        required: true
+      responses:
+        "204":
+          description: Update Book information.
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/SucessResponse.yml#/components/schemas/NoContentResponse
+        "403":
+          description: "Forbidden, Incorrect token"
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        "500":
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+  /books:
+    get:
+      tags:
+      - BookApi
+      summary: Fetch All Book information
+      operationId: getAllBookInformation
+      parameters:
+      - name: count
+        in: query
+        description: fetch count
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+        example: 10
+      responses:
+        "200":
+          description: Fetch all Book information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookListResponse'
   /auth:
     post:
       tags:
@@ -73,9 +267,198 @@ paths:
             application/json:
               schema:
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+  /member:
+    get:
+      tags:
+      - MemberApi
+      summary: Fetch Member information
+      operationId: getMemberInformation
+      parameters:
+      - name: memberId
+        in: path
+        description: Member ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+        example: Account-A
+      responses:
+        "200":
+          description: Fetch member information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberResponse'
+        "403":
+          description: "Forbidden, Incorrect token"
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+    post:
+      tags:
+      - MemberApi
+      summary: create Member information
+      operationId: createMember
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberRequest'
+        required: true
+      responses:
+        "201":
+          description: Can't fetch Member information.
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/SucessResponse.yml#/components/schemas/CreatedResponse
+        "400":
+          description: Domain Exception
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        "403":
+          description: "Forbidden, Incorrect token"
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        "500":
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+    delete:
+      tags:
+      - MemberApi
+      summary: Delete Member information
+      operationId: deleteMember
+      parameters:
+      - name: memberId
+        in: path
+        description: Member ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+        example: Account-A
+      responses:
+        "204":
+          description: Delete Member information.
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/SucessResponse.yml#/components/schemas/DeletedResponse
+        "403":
+          description: "Forbidden, Incorrect token"
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        "500":
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+  /members:
+    get:
+      tags:
+      - MemberApi
+      summary: Fetch All Members information
+      operationId: getAllMemberInformation
+      parameters:
+      - name: count
+        in: query
+        description: fetch count
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+        example: 10
+      responses:
+        "200":
+          description: Fetch all members information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberListResponse'
+        "403":
+          description: "Forbidden, Incorrect token"
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
 components:
   schemas:
     AuthRequest:
       $ref: ../schemas/Auth.yml#/components/schemas/Auth
+    BookListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        books:
+          type: array
+          description: Book information
+          items:
+            type: object
+            properties:
+              book:
+                $ref: ../schemas/Book.yml#/components/schemas/Book
+              tags:
+                type: array
+                items:
+                  $ref: ../schemas/Tag.yml#/components/schemas/Tag
+      description: Books Information
+    BookRequest:
+      type: object
+      properties:
+        book:
+          $ref: ../schemas/Book.yml#/components/schemas/Book
+        tags:
+          type: array
+          items:
+            type: integer
+      description: Book create information
+    BookResponse:
+      type: object
+      properties:
+        book:
+          $ref: ../schemas/Book.yml#/components/schemas/Book
+        tags:
+          type: array
+          items:
+            $ref: ../schemas/Tag.yml#/components/schemas/Tag
+      description: Book information
+    MemberListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        members:
+          type: array
+          description: Member information
+          items:
+            $ref: ../schemas/Member.yml#/components/schemas/Member
+      description: Members Information
+    MemberRequest:
+      $ref: ../schemas/Member.yml#/components/schemas/Member
+    MemberResponse:
+      $ref: ../schemas/Member.yml#/components/schemas/Member
     TokenResponse:
       $ref: ../schemas/Token.yml#/components/schemas/Token
