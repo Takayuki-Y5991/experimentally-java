@@ -3,6 +3,7 @@ package com.example.javautilslibrary.infrastructure.repository;
 import com.example.javautilslibrary.common.exception.ClientException;
 import com.example.javautilslibrary.common.mapper.MemberMapper;
 import com.example.javautilslibrary.common.utils.AuthUtils;
+import com.example.javautilslibrary.common.utils.Constance;
 import com.example.javautilslibrary.domain.object.entity.Member;
 import com.example.javautilslibrary.domain.repository.MemberRepository;
 import com.example.javautilslibrary.infrastructure.entity.mybatis.MemberEntity;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.javautilslibrary.infrastructure.repository.mybatis.MemberEntityDynamicSqlSupport.memberEntity;
 import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
@@ -68,10 +70,11 @@ public class MemberRepositoryImpl implements MemberRepository {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public List<Member> fetchAll() {
+    public List<Member> fetchAll(Integer count) {
         var options = select(memberEntity.allColumns())
                 .from(memberEntity)
                 .orderBy(memberEntity.memberId)
+                .limit(Objects.nonNull(count) ? count : Constance.DEFAULT_FETCH_LIMIT)
                 .build()
                 .render(MYBATIS3);
         var result = mybatis.selectMany(options);

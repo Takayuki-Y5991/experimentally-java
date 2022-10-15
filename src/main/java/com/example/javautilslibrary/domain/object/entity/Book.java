@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Builder(access = AccessLevel.PACKAGE)
@@ -26,5 +25,4 @@ public class Book extends Domain<Book> {
     private String description;
     private String imageUrl;
     private BookStatus status;
-    private List<Tag> tag;
 }

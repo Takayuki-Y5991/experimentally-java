@@ -1,9 +1,9 @@
 package com.example.javautilslibrary.domain.service;
 
-import com.example.javautilslibrary.application.request.MemberRequest;
-import com.example.javautilslibrary.application.response.MemberResponse;
 
-import java.util.List;
+import org.openapi.example.model.MemberListResponse;
+import org.openapi.example.model.MemberRequest;
+import org.openapi.example.model.MemberResponse;
 
 public interface MemberService {
 
@@ -38,6 +38,8 @@ public interface MemberService {
 
     /**
      * fetch all members
+     *
+     * @param count number of members
      */
-    List<MemberResponse> findAll();
+    MemberListResponse findAll(Integer count);
 }

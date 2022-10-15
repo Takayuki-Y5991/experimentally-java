@@ -1,0 +1,13 @@
+components:
+  schemas:
+    Tag:
+      type: object
+      properties:
+        tagId:
+          type: integer
+          description: Tag ID
+          example: 12
+        tagName:
+          type: string
+          example: Philosophy
+          description: Tag name

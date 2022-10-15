@@ -1,15 +1,15 @@
 package com.example.javautilslibrary.common.exception;
 
 /**
- * Domain exception
+ * Resource Not Found exception
  */
-public class DomainException extends RuntimeException {
+public class ResourceNotFoundException extends RuntimeException {
 
-    public DomainException(String message) {
+    public ResourceNotFoundException(String message) {
         super(message);
     }
 
-    public DomainException(String message, Throwable cause) {
+    public ResourceNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 }

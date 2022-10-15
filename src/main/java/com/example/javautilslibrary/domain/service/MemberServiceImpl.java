@@ -1,18 +1,20 @@
 package com.example.javautilslibrary.domain.service;
 
-import com.example.javautilslibrary.application.request.MemberRequest;
-import com.example.javautilslibrary.application.response.MemberResponse;
+import com.example.javautilslibrary.application.converter.MemberResponseConverter;
 import com.example.javautilslibrary.common.exception.ClientException;
+import com.example.javautilslibrary.common.exception.ResourceNotFoundException;
 import com.example.javautilslibrary.common.mapper.MemberMapper;
 import com.example.javautilslibrary.domain.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.openapi.example.model.MemberListResponse;
+import org.openapi.example.model.MemberRequest;
+import org.openapi.example.model.MemberResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -72,7 +74,7 @@ public class MemberServiceImpl implements MemberService {
     public MemberResponse findById(Long memberId) {
         var result = memberRepository.fetchById(memberId);
         if (Objects.isNull(result)) {
-            return null;
+            throw new ResourceNotFoundException(String.format("Member Id: [%s] not found", memberId));
         }
         return mapper.toMemberResponse(result);
     }
@@ -83,11 +85,12 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
-    public List<MemberResponse> findAll() {
-        var result = memberRepository.fetchAll();
+    public MemberListResponse findAll(Integer count) {
+        var result = memberRepository.fetchAll(count);
         if (CollectionUtils.isEmpty(result)) {
-            return Collections.EMPTY_LIST;
+            return MemberResponseConverter.buildMemberResponse(Collections.EMPTY_LIST);
         }
-        return mapper.toMemberResponseList(result);
+        var response = mapper.toMemberList(result);
+        return MemberResponseConverter.buildMemberResponse(response);
     }
 }

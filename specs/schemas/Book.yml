@@ -5,8 +5,6 @@ components:
       properties:
         bookId:
           type: string
-          format:
-            - uuid
           example: 7c93708e-619f-44bc-b2a3-9672bcb3fb89
           description: Book ID
         title:
@@ -35,9 +33,3 @@ components:
           type: string
           example: 1
           description: Book Status,  1 - Can Rental, 2 - Rental, 3 - RESERVED
-        tags:
-          type: array
-          items: string
-          description: Book Tag IDs
-          example: [ 1, 2, 3 ]
-    
