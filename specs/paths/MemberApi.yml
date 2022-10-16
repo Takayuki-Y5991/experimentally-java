@@ -22,8 +22,6 @@ paths:
             format: int64
       summary: Fetch Member information
       operationId: getMemberInformation
-      tags:
-        - MemberApi
       responses:
         200:
           description: Fetch member information
@@ -47,8 +45,6 @@ paths:
     post:
       summary: create Member information
       operationId: createMember
-      tags:
-        - MemberApi
       requestBody:
         required: true
         content:
@@ -95,8 +91,6 @@ paths:
             format: int64
       summary: Delete Member information
       operationId: deleteMember
-      tags:
-        - MemberApi
       responses:
         204:
           description: Delete Member information.
@@ -129,8 +123,6 @@ paths:
             type: integer
       summary: Fetch All Members information
       operationId: getAllMemberInformation
-      tags:
-        - MemberApi
       responses:
         200:
           description: Fetch all members information

@@ -13,8 +13,6 @@ servers:
 paths:
   /book:
     get:
-      tags:
-      - BookApi
       summary: Fetch Book information
       operationId: getBookInformation
       parameters:
@@ -41,12 +39,10 @@ paths:
               schema:
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
     post:
-      tags:
-      - BookApi
       summary: create Book information
       operationId: createBook
       parameters:
-      - name: Authentication
+      - name: Authorization
         in: header
         description: "JWT Token, Prefix Bearer"
         required: true
@@ -87,8 +83,6 @@ paths:
               schema:
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
     delete:
-      tags:
-      - BookApi
       summary: Delete Book information
       operationId: deleteBook
       parameters:
@@ -101,7 +95,7 @@ paths:
         schema:
           type: string
         example: 57abea48-eda6-4d6d-96f9-0cb44dbeec68
-      - name: Authentication
+      - name: Authorization
         in: header
         description: "JWT Token, Prefix Bearer"
         required: true
@@ -130,8 +124,6 @@ paths:
               schema:
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
     patch:
-      tags:
-      - BookApi
       summary: Update Book information
       operationId: updateBook
       parameters:
@@ -144,7 +136,7 @@ paths:
         schema:
           type: string
         example: 57abea48-eda6-4d6d-96f9-0cb44dbeec68
-      - name: Authentication
+      - name: Authorization
         in: header
         description: "JWT Token, Prefix Bearer"
         required: true
@@ -180,8 +172,6 @@ paths:
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
   /books:
     get:
-      tags:
-      - BookApi
       summary: Fetch All Book information
       operationId: getAllBookInformation
       parameters:
@@ -203,8 +193,6 @@ paths:
                 $ref: '#/components/schemas/BookListResponse'
   /auth:
     post:
-      tags:
-      - AuthApi
       summary: Generate Token
       operationId: getToken
       requestBody:
@@ -234,12 +222,10 @@ paths:
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
   /auth/refresh:
     post:
-      tags:
-      - AuthApi
       summary: Refresh Token
       operationId: refreshTokenToken
       parameters:
-      - name: Authentication
+      - name: Authorization
         in: header
         description: "JWT Token, Prefix Bearer"
         required: true
@@ -269,8 +255,6 @@ paths:
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
   /member:
     get:
-      tags:
-      - MemberApi
       summary: Fetch Member information
       operationId: getMemberInformation
       parameters:
@@ -304,8 +288,6 @@ paths:
               schema:
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
     post:
-      tags:
-      - MemberApi
       summary: create Member information
       operationId: createMember
       requestBody:
@@ -340,8 +322,6 @@ paths:
               schema:
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
     delete:
-      tags:
-      - MemberApi
       summary: Delete Member information
       operationId: deleteMember
       parameters:
@@ -376,8 +356,6 @@ paths:
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
   /members:
     get:
-      tags:
-      - MemberApi
       summary: Fetch All Members information
       operationId: getAllMemberInformation
       parameters:

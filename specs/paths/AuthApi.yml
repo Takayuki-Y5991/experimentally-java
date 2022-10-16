@@ -13,8 +13,6 @@ paths:
     post:
       summary: Generate Token
       operationId: getToken
-      tags:
-        - AuthApi
       requestBody:
         required: true
         content:
@@ -46,16 +44,14 @@ paths:
     post:
       summary: Refresh Token
       operationId: refreshTokenToken
-      tags:
-        - AuthApi
       parameters:
-      - in: header
-        name: Authentication
-        description: JWT Token, Prefix Bearer
-        example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
-        required: true
-        schema:
-          type: string
+        - in: header
+          name: Authorization
+          description: JWT Token, Prefix Bearer
+          example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Refresh Token Success
@@ -77,7 +73,6 @@ paths:
               schema:
                 title: AccessDeniedException
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
-
 components:
   schemas:
     AuthRequest:

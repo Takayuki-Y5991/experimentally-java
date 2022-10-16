@@ -54,6 +54,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
     private void errorLogging(Exception ex, HttpStatus status) {
         log.error("[Error]: [" + ex.getMessage() + "]");
+        ex.printStackTrace();
         if (Objects.nonNull(ex.getCause())) {
             log.error("[Cause]: [" + ex.getCause().getStackTrace() + "]");
         }

@@ -48,7 +48,7 @@ public class BookController implements BookApi, BooksApi {
      */
     @Override
     @Authorize
-    public ResponseEntity<CreatedResponse> createBook(String authentication, BookRequest bookRequest) {
+    public ResponseEntity<CreatedResponse> createBook(String authorization, BookRequest bookRequest) {
         service.createBook(bookRequest);
         return ResponseEntity.ok(CommonResponseConverter.buildCreated(("Book")));
     }
@@ -58,7 +58,7 @@ public class BookController implements BookApi, BooksApi {
      */
     @Override
     @Authorize
-    public ResponseEntity<DeletedResponse> deleteBook(String bookId, String authentication) {
+    public ResponseEntity<DeletedResponse> deleteBook(String bookId, String authorization) {
         service.deleteBook(bookId);
         return ResponseEntity.ok(CommonResponseConverter.buildDeleted(String.format("Book id: %s", bookId)));
     }
@@ -78,7 +78,7 @@ public class BookController implements BookApi, BooksApi {
      */
     @Override
     @Authorize
-    public ResponseEntity<NoContentResponse> updateBook(String bookId, String authentication, BookRequest bookRequest) {
+    public ResponseEntity<NoContentResponse> updateBook(String bookId, String authorization, BookRequest bookRequest) {
         service.updateBook(bookId, bookRequest);
         return ResponseEntity.ok(CommonResponseConverter.buildUpdated(String.format("Book id: %s", bookId)));
     }

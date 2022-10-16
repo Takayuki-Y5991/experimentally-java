@@ -21,8 +21,6 @@ paths:
             type: string
       summary: Fetch Book information
       operationId: getBookInformation
-      tags:
-        - BookApi
       responses:
         200:
           description: Fetch Book information
@@ -38,17 +36,15 @@ paths:
                 $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
     post:
       parameters:
-      - in: header
-        name: Authentication
-        description: JWT Token, Prefix Bearer
-        example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
-        required: true
-        schema:
-          type: string
+        - in: header
+          name: Authorization
+          description: JWT Token, Prefix Bearer
+          example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+          required: true
+          schema:
+            type: string
       summary: create Book information
       operationId: createBook
-      tags:
-        - BookApi
       requestBody:
         required: true
         content:
@@ -93,7 +89,7 @@ paths:
           schema:
             type: string
         - in: header
-          name: Authentication
+          name: Authorization
           description: JWT Token, Prefix Bearer
           example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
           required: true
@@ -101,8 +97,6 @@ paths:
             type: string
       summary: Delete Book information
       operationId: deleteBook
-      tags:
-        - BookApi
       responses:
         204:
           description: Delete Book information.
@@ -134,16 +128,14 @@ paths:
           schema:
             type: string
         - in: header
-          name: Authentication
+          name: Authorization
           description: JWT Token, Prefix Bearer
           example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
           required: true
           schema:
             type: string
-      summary:  Update Book information
+      summary: Update Book information
       operationId: updateBook
-      tags:
-        - BookApi
       requestBody:
         required: true
         content:
@@ -182,8 +174,6 @@ paths:
             type: integer
       summary: Fetch All Book information
       operationId: getAllBookInformation
-      tags:
-        - BookApi
       responses:
         200:
           description: Fetch all Book information
