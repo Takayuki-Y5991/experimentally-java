@@ -20,7 +20,7 @@ public enum BookStatus {
     }
 
     public static BookStatus isStatus(int status) {
-        
+
         var value = Arrays.stream(BookStatus.values()).filter(e -> e.getStatus() == status).findAny();
         if (value.isPresent()) {
             throw new IllegalStateException("Book status is valid, you check value");

@@ -4,6 +4,7 @@ import com.example.javautilslibrary.common.config.anotation.Authorize;
 import com.example.javautilslibrary.common.config.anotation.NonAuthorize;
 import com.example.javautilslibrary.common.exception.AccessDeniedException;
 import com.example.javautilslibrary.common.utils.JwtUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 
 
+@Slf4j
 @Component
 public class AuthorizationHandlerInterceptor implements HandlerInterceptor {
 

@@ -33,8 +33,8 @@ public class AuthController implements AuthApi {
      */
     @Override
     @NonAuthorize
-    public ResponseEntity<TokenResponse> refreshTokenToken(String authentication) {
-        var response = service.refreshToken(authentication);
+    public ResponseEntity<TokenResponse> refreshTokenToken(String authorization) {
+        var response = service.refreshToken(authorization);
         return ResponseEntity.ok(response);
     }
 }
