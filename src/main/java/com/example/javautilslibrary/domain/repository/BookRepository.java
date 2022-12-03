@@ -51,4 +51,12 @@ public interface BookRepository {
      */
     boolean deleteBook(String id);
 
+    /**
+     * Book rental, Book status update
+     *
+     * @param id book_id
+     * @return rental book
+     */
+    Book bookRental(String id);
+
 }

@@ -242,6 +242,51 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BookListResponse'
+  /books/rental:
+    post:
+      summary: Book Rental
+      operationId: borrowBooks
+      parameters:
+      - name: Authorization
+        in: header
+        description: "JWT Token, Prefix Bearer"
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRentalRequest'
+        required: true
+      responses:
+        "201":
+          description: Book lending completed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookListResponse'
+        "400":
+          description: Domain Exception
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        "403":
+          description: "Forbidden, Incorrect token"
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        "500":
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
   /auth:
     post:
       summary: Generate Token
@@ -454,6 +499,17 @@ components:
                 items:
                   $ref: ../schemas/Tag.yml#/components/schemas/Tag
       description: Books Information
+    BookRentalRequest:
+      required:
+      - bookId
+      type: object
+      properties:
+        bookId:
+          type: array
+          description: will want borrow book id
+          items:
+            type: string
+      description: Book rental information
     BookRequest:
       type: object
       properties:

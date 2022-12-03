@@ -181,6 +181,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BookListResponse'
+  /books/rental:
+    post:
+      parameters:
+        - in: header
+          name: Authorization
+          description: JWT Token, Prefix Bearer
+          example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+          required: true
+          schema:
+            type: string
+      summary: Book Rental
+      operationId: borrowBooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRentalRequest'
+      responses:
+        201:
+          description:  Book lending completed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookListResponse'
+        400:
+          description: Domain Exception
+          content:
+            application/json:
+              schema:
+                title: Domain Exception
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        403:
+          description: Forbidden, Incorrect token
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        500:
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                title: ClientException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+      
 components:
   schemas:
     BookListResponse:
@@ -220,5 +267,14 @@ components:
           type: array
           items:
             $ref: ../schemas/Tag.yml#/components/schemas/Tag
-    MemberRequest:
-      $ref: ../schemas/Member.yml#/components/schemas/Member
+    BookRentalRequest:
+      type: object
+      description: Book rental information
+      properties:
+        bookId:
+          description: will want borrow book id
+          type: array
+          items:
+            type: string
+      required:
+        - bookId

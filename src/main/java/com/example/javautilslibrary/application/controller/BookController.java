@@ -7,6 +7,7 @@ import com.example.javautilslibrary.domain.service.BookService;
 import org.openapi.example.api.BookApi;
 import org.openapi.example.api.BooksApi;
 import org.openapi.example.model.BookListResponse;
+import org.openapi.example.model.BookRentalRequest;
 import org.openapi.example.model.BookRequest;
 import org.openapi.example.model.BookResponse;
 import org.openapi.example.model.CreatedResponse;
@@ -83,5 +84,13 @@ public class BookController implements BookApi, BooksApi {
         return ResponseEntity.ok(CommonResponseConverter.buildUpdated(String.format("Book id: %s", bookId)));
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Authorize
+    public ResponseEntity<BookListResponse> borrowBooks(String authorization, BookRentalRequest bookRentalRequest) {
+        var result = service.borrowBooks(bookRentalRequest.getBookId(), authorization);
+        return ResponseEntity.ok(result);
+    }
 }

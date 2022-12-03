@@ -97,4 +97,18 @@ public class BookRepositoryImpl implements BookRepository {
     public boolean deleteBook(String id) {
         return mybatis.deleteByPrimaryKey(id) > 0;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Book bookRental(String id) {
+        var options = update(bookEntity)
+                .set(bookEntity.status).equalTo(BookStatus.RENTAL.getStatus())
+                .where(bookEntity.bookId, isEqualTo(id))
+                .build().render(MYBATIS3);
+        mybatis.update(options);
+        var result = mybatis.selectByPrimaryKey(id);
+        return result.map(e -> mapper.toDomain(e)).orElse(null);
+    }
 }

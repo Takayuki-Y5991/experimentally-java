@@ -4,6 +4,8 @@ import org.openapi.example.model.BookListResponse;
 import org.openapi.example.model.BookRequest;
 import org.openapi.example.model.BookResponse;
 
+import java.util.List;
+
 /**
  * Book Service implementation
  */
@@ -44,4 +46,13 @@ public interface BookService {
      * @param limit number of books fetch count
      */
     BookListResponse findAll(Integer limit);
+
+    /**
+     * Borrow books
+     *
+     * @param bookId        Book ID
+     * @param authorization token
+     * @return loading complete books
+     */
+    BookListResponse borrowBooks(List<String> bookId, String authorization);
 }

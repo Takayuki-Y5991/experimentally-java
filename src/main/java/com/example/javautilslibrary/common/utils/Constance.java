@@ -1,5 +1,7 @@
 package com.example.javautilslibrary.common.utils;
 
+import java.time.LocalDateTime;
+
 public class Constance {
     /**
      * mail format
@@ -19,4 +21,16 @@ public class Constance {
      * Fetch data limit
      */
     public static final long DEFAULT_FETCH_LIMIT = 10L;
+
+    /**
+     * Book return limit
+     */
+    public static LocalDateTime DEFAULT_BOOK_RETURN_LIMIT() {
+        return LocalDateTime.now().plusDays(10L);
+    }
+
+    /**
+     * Book max borrowed count
+     */
+    public static final int DEFAULT_BOOK_MAX_BORROWED_COUNT = 10;
 }
