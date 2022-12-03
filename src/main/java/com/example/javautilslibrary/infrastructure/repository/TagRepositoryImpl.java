@@ -36,7 +36,7 @@ public class TagRepositoryImpl implements TagRepository {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public List<Tag> fetchALl() {
+    public List<Tag> fetchAll() {
         var options = select(tagEntity.allColumns())
                 .from(tagEntity)
                 .build()
@@ -66,6 +66,12 @@ public class TagRepositoryImpl implements TagRepository {
      */
     @Override
     public void save(List<TagEntity> tags) {
-        tags.forEach(mybatis::insert);
+        // Fetch All tags data
+        var fetchData = this.fetchAll()
+                .stream().map(Tag::getName).toList();
+        // Create new tags, not included in existing database
+        tags.stream()
+                .filter(e -> !fetchData.contains(e.getTagName()))
+                .forEach(mybatis::insert);
     }
 }

@@ -60,10 +60,10 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public void deleteBook(String bookId) {
-        /* Delete Book */
-        bookRepository.deleteBook(bookId);
         /* Delete Related Book - Tag */
         bookTagRepository.delete(bookId);
+        /* Delete Book */
+        bookRepository.deleteBook(bookId);
     }
 
     /**
