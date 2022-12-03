@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: Tag API
+  description: Tag API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api/v1/
+    description: Tag servers
+
+paths:
+  /tags:
+    get:
+      summary: Fetch All Tag information
+      operationId: getAllTagInformation
+      responses:
+        200:
+          description: Fetch all Tag information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagResponse'
+    post:
+      parameters:
+        - in: header
+          name: Authorization
+          description: JWT Token, Prefix Bearer
+          example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+          required: true
+          schema:
+            type: string
+      summary: create Tag information
+      operationId: createTag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagRequest'
+      responses:
+        201:
+          description: Created Tag information.
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/SucessResponse.yml#/components/schemas/CreatedResponse
+        403:
+          description: Forbidden, Incorrect token
+          content:
+            application/json:
+              schema:
+                title: AccessDeniedException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        500:
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                title: ClientException
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+components:
+  schemas:
+    TagRequest:
+      type: object
+      description: Tag create information
+      properties:
+        tags:
+          type: array
+          items: 
+            type: string
+    TagResponse:
+      type: object
+      description: Tag information
+      properties:
+        count:
+          type: integer
+        tags:
+          type: array
+          items:
+            $ref: ../schemas/Tag.yml#/components/schemas/Tag

@@ -5,12 +5,63 @@ info:
   version: 1.0.0
 servers:
 - url: http://localhost:8080/api/v1/
+  description: Tag servers
+- url: http://localhost:8080/api/v1/
   description: Book servers
 - url: http://localhost:8080/api/v1/
   description: authentication servers
 - url: http://localhost:8080/api/v1/
   description: member servers
 paths:
+  /tags:
+    get:
+      summary: Fetch All Tag information
+      operationId: getAllTagInformation
+      responses:
+        "200":
+          description: Fetch all Tag information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagResponse'
+    post:
+      summary: create Tag information
+      operationId: createTag
+      parameters:
+      - name: Authorization
+        in: header
+        description: "JWT Token, Prefix Bearer"
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: Bearer XXXXXXX-XXXXXXXX-XXXXXXXX
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagRequest'
+        required: true
+      responses:
+        "201":
+          description: Created Tag information.
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/SucessResponse.yml#/components/schemas/CreatedResponse
+        "403":
+          description: "Forbidden, Incorrect token"
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
+        "500":
+          description: Data registration error
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/common/FailureResponse.yml#/components/schemas/ApiErrorResponse
   /book:
     get:
       summary: Fetch Book information
@@ -438,5 +489,23 @@ components:
       $ref: ../schemas/Member.yml#/components/schemas/Member
     MemberResponse:
       $ref: ../schemas/Member.yml#/components/schemas/Member
+    TagRequest:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+      description: Tag create information
+    TagResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        tags:
+          type: array
+          items:
+            $ref: ../schemas/Tag.yml#/components/schemas/Tag
+      description: Tag information
     TokenResponse:
       $ref: ../schemas/Token.yml#/components/schemas/Token

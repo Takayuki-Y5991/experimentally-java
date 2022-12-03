@@ -21,4 +21,34 @@ public interface TagMapper {
                 .map(this::toDomain)
                 .collect(Collectors.toList());
     }
+
+    default List<TagEntity> toEntityList(List<String> domains) {
+        return domains.stream()
+                .map(e -> {
+                    var obj = new TagEntity();
+                    obj.setTagName(e);
+                    return obj;
+                })
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * mapping domain to response
+     *
+     * @param domain domain
+     * @return response model
+     */
+    org.openapi.example.model.Tag toTag(Tag domain);
+
+    /**
+     * mapping List<domain> to List<response>
+     *
+     * @param sources domain (Type List)
+     * @return response model
+     */
+    default List<org.openapi.example.model.Tag> toResponse(List<Tag> sources) {
+        return sources.stream()
+                .map(this::toTag)
+                .collect(Collectors.toList());
+    }
 }

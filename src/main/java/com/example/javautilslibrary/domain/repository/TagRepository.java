@@ -14,7 +14,7 @@ public interface TagRepository {
      *
      * @return tags
      */
-    List<Tag> fetchALl();
+    List<Tag> fetchAll();
 
     /**
      * Fetch All Tags, related to book
