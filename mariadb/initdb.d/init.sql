@@ -95,19 +95,6 @@ CREATE TABLE IF NOT EXISTS `book_tag` (
 
 -- テーブル local_mariadb.book_tag: ~0 rows (約) のデータをダンプしています
 
---  テーブル local_mariadb.member_rental_book の構造をダンプしています
-CREATE TABLE IF NOT EXISTS `member_rental_book` (
-  `member_id` bigint(20) NOT NULL,
-  `book_id` varchar(36) NOT NULL,
-  PRIMARY KEY (`member_id`,`book_id`),
-  UNIQUE KEY `UK_dvjtcnbew49bs9keyi9hgdo7r` (`member_id`),
-  UNIQUE KEY `UK_hncxperuu74cgxpkivvatfwmj` (`book_id`),
-  CONSTRAINT `FKbta714tuqq8u7q5qiiiu4d4hy` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`),
-  CONSTRAINT `FKdb17jytqntxe75wri362mig9r` FOREIGN KEY (`book_id`) REFERENCES `book` (`book_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- テーブル local_mariadb.member_rental_book: ~0 rows (約) のデータをダンプしています
-
 --  テーブル local_mariadb.hibernate_sequence の構造をダンプしています
 CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
   `next_not_cached_value` bigint(21) NOT NULL,
